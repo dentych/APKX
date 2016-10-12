@@ -38,7 +38,12 @@ class XRay : public RouteCheckpoint {
 public:
     XRay(ICheckpoint* contrabandBox) : contrabandBox_(contrabandBox) {}
     template<typename T>
-    void checkIn(Baggage* baggage);
+    void checkIn(T* baggage) {
+        if(contains<ContrabandTypes, T>::value)
+            dispatch(baggage, contrabandBox_);
+        else
+            dispatch(baggage);
+    }
 private:
     ICheckpoint* contrabandBox_;
 };
