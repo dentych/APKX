@@ -34,8 +34,6 @@ ICheckpoint* RouteCheckpoint::getRoute(int part) {
 
 template<typename T>
 void XRay::checkIn(T baggage) {
-    bool isContraband = false;
-
     if(contains<ContrabandTypes, T>::value)
         dispatch(baggage, contrabandBox_);
     else
