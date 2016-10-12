@@ -29,18 +29,6 @@ ICheckpoint* RouteCheckpoint::getRoute(int part) {
 };
 
 
-// -- XRay -------------------------------------------------------------------
-
-
-template<typename T>
-void XRay::checkIn(T baggage) {
-    if(contains<ContrabandTypes, T>::value)
-        dispatch(baggage, contrabandBox_);
-    else
-        dispatch(baggage);
-};
-
-
 // -- BaggageBox --------------------------------------------------------------
 
 
