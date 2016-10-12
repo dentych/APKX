@@ -2,16 +2,16 @@
 // Created by dennis on 12/10/16.
 //
 
-#include "Bagage.hpp"
+#include "Baggage.hpp"
 
-Bagage::Bagage() : counter(0) {
+Baggage::Baggage() : counter(0) {
 }
 
-void Bagage::setDestination(int destination[]) {
+void Baggage::setDestination(int destination[]) {
     std::copy(std::begin(destination), std::end(destination), std::begin(this->destination));
 }
 
-int Bagage::nextPart() {
+int Baggage::nextPart() {
     if (counter < 0 || counter > array_size - 1) {
         return 0;
     }

@@ -1,23 +1,23 @@
 #pragma once
 
 #include <map>
-#include "Bagage.hpp"
+#include "Baggage.hpp"
 
 
 class Checkpoint {
 public:
-    virtual void checkIn(Bagage* bagage) = 0;
+    virtual void checkIn(Baggage* bagage) = 0;
 };
 
 
 class RouteCheckpoint : public Checkpoint {
 public:
-    void checkIn(Bagage* bagage);
+    void checkIn(Baggage* bagage);
     void addRoute(int part, Checkpoint* checkpoint);
 protected:
     Checkpoint* getRoute(int part);
-    void dispatch(Bagage* bagage);
-    void dispatch(Bagage* bagage, Checkpoint* checkpoint);
+    void dispatch(Baggage* bagage);
+    void dispatch(Baggage* bagage, Checkpoint* checkpoint);
 private:
     std::map<int, Checkpoint*> routes_;
 };
@@ -28,14 +28,14 @@ private:
     static const int contrabandPart_ = -1;
 public:
     XRay(Checkpoint* contrabandBox);
-    void checkIn(Bagage* bagage);
+    void checkIn(Baggage* bagage);
 };
 
 
 class BagageBox : public Checkpoint {
 private:
-    std::vector<Bagage*> content_;
+    std::vector<Baggage*> content_;
 public:
-    void checkIn(Bagage* bagage);
+    void checkIn(Baggage* bagage);
     void empty();
 };

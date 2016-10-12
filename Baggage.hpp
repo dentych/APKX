@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-class Bagage {
+class Baggage {
 public:
     void setDestination(int destination[]);
 
@@ -18,21 +18,21 @@ protected:
     int destination[array_size];
     int counter;
 
-    Bagage();
+    Baggage();
 };
 
-class Hash : Bagage {
-
-};
-
-class Heroin : Bagage {
+class Hash : Baggage {
 
 };
 
-class DonaldTrumpMerchandise : Bagage {
+class Heroin : Baggage {
 
 };
 
-class Package : Bagage {
+class DonaldTrumpMerchandise : Baggage {
+
+};
+
+class Package : Baggage {
 
 };
