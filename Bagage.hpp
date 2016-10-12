@@ -12,13 +12,11 @@
 
 class Bagage {
 public:
-    Bagage() = delete;
-
     void setDestination(int destination[]) {
         std::copy(std::begin(destination), std::end(destination), std::begin(this->destination));
     }
 
-    int nextDestination() {
+    int nextPart() {
         if (counter < 0 || counter > ARR_SIZE - 1) {
             return 0;
         }
@@ -28,6 +26,9 @@ public:
     }
 
 protected:
+    Bagage() : counter(0) {
+    }
+
     int destination[ARR_SIZE];
     int counter;
 };

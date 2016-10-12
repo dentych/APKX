@@ -6,6 +6,6 @@
 
 #include "Bagage.hpp"
 
-class Package : Bagage {
+class Heroin : Bagage {
 public:
 };

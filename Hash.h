@@ -6,6 +6,7 @@
 
 #include "Bagage.hpp"
 
-class Package : Bagage {
+class Hash : Bagage {
 public:
+
 };
