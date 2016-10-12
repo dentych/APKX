@@ -4,5 +4,17 @@
 
 class Checkpoint {
 public:
-    checkIn(Bagage* bagage);
+    virtual checkIn(Bagage* bagage, int ttl) = 0;
+};
+
+
+class BagageBox : Checkpoint {
+public:
+    checkIn(Bagage* bagage, int ttl);
+};
+
+
+class RouteCheckpoint : Checkpoint {
+public:
+    checkIn(Bagage* bagage, int ttl);
 };
