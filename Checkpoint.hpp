@@ -6,7 +6,7 @@
 
 class Checkpoint {
 public:
-    virtual checkIn(Bagage* bagage) = 0;
+    virtual void checkIn(Bagage* bagage) = 0;
 };
 
 
@@ -27,13 +27,15 @@ class XRay : public RouteCheckpoint {
 private:
     static const int contrabandPart_ = -1;
 public:
-    public XRay(Checkpoint* contrabandBox);
-    checkIn(Bagage* bagage);
+    XRay(Checkpoint* contrabandBox);
+    void checkIn(Bagage* bagage);
 };
 
 
 class BagageBox : public Checkpoint {
+private:
+    std::vector<Bagage*> content_;
 public:
-    checkIn(Bagage* bagage);
+    void checkIn(Bagage* bagage);
     void empty();
 };

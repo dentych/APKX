@@ -12,7 +12,7 @@ void RouteCheckpoint::checkIn(Bagage* bagage) {
 void RouteCheckpoint::dispatch(Bagage* bagage) {
     int part = bagage->nextPart();
     Checkpoint* checkpoint = getRoute(part);
-    dispatchTo(bagage, checkpoint);
+    dispatch(bagage, checkpoint);
 };
 
 
@@ -22,12 +22,12 @@ void RouteCheckpoint::dispatch(Bagage* bagage, Checkpoint* checkpoint) {
 
 
 void RouteCheckpoint::addRoute(int part, Checkpoint* checkpoint) {
-    routes[part] = checkpoint;
+    routes_[part] = checkpoint;
 };
 
 
-int RouteCheckpoint::getRoute(int part) {
-    return routes[part];
+Checkpoint* RouteCheckpoint::getRoute(int part) {
+    return routes_[part];
 };
 
 
@@ -53,7 +53,7 @@ void XRay::checkIn(Bagage* bagage) {
 
 
 void BagageBox::checkIn(Bagage* bagage) {
-    
+    content_.push_back(bagage);
 };
 
 
