@@ -12,6 +12,11 @@ void RouteCheckpoint::checkIn(Bagage* bagage) {
 void RouteCheckpoint::dispatch(Bagage* bagage) {
     int part = bagage->nextPart();
     Checkpoint* checkpoint = getRoute(part);
+    dispatchTo(bagage, checkpoint);
+};
+
+
+void RouteCheckpoint::dispatchTo(Bagage* bagage, Checkpoint* checkpoint) {
     checkpoint->checkIn(bagage);
 };
 
@@ -35,7 +40,12 @@ XRay::XRay(Checkpoint* contrabandBox) {
 
 
 void XRay::checkIn(Bagage* bagage) {
-    dispatch(bagage);
+    bool isContraband = false;
+
+    if(isContraband)
+        dispatchTo(getRoute(contrabandPart_));
+    else
+        dispatch(bagage);
 };
 
 

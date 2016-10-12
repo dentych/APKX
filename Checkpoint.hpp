@@ -17,6 +17,7 @@ public:
 protected:
     Checkpoint* getRoute(int part);
     void dispatch(Bagage* bagage);
+    void dispatchTo(Bagage* bagage, Checkpoint* checkpoint);
 private:
     std::map<int, Checkpoint*> routes_;
 };
