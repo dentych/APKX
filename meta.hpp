@@ -30,11 +30,11 @@ struct contains<NullType, T> {
 };
 
 
-template <typename THead, typename TTail>
+template <typename THead, typename TList>
 struct TypeList
 {
     typedef THead first;
-    typedef TTail rest;
+    typedef TList rest;
 };
 
 

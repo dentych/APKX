@@ -21,13 +21,13 @@ public:
 class RouteCheckpoint : public ICheckpoint {
 public:
     void checkIn(Baggage* baggage);
-    void addRoute(int part, ICheckpoint* checkpoint);
+    void addRoute(unsigned int part, ICheckpoint* checkpoint);
 protected:
-    ICheckpoint* getRoute(int part);
+    ICheckpoint* getRoute(unsigned int part);
     void dispatch(Baggage* baggage);
     void dispatch(Baggage* baggage, ICheckpoint* checkpoint);
 private:
-    std::map<int, ICheckpoint*> routes_;
+    std::map<unsigned int, ICheckpoint*> routes_;
 };
 
 

@@ -19,12 +19,12 @@ void RouteCheckpoint::dispatch(Baggage* baggage, ICheckpoint* checkpoint) {
 };
 
 
-void RouteCheckpoint::addRoute(int part, ICheckpoint* checkpoint) {
+void RouteCheckpoint::addRoute(unsigned int part, ICheckpoint* checkpoint) {
     routes_[part] = checkpoint;
 };
 
 
-ICheckpoint* RouteCheckpoint::getRoute(int part) {
+ICheckpoint* RouteCheckpoint::getRoute(unsigned int part) {
     return routes_[part];
 };
 
