@@ -16,7 +16,7 @@ void RouteCheckpoint::dispatch(Bagage* bagage) {
 };
 
 
-void RouteCheckpoint::dispatchTo(Bagage* bagage, Checkpoint* checkpoint) {
+void RouteCheckpoint::dispatch(Bagage* bagage, Checkpoint* checkpoint) {
     checkpoint->checkIn(bagage);
 };
 
@@ -43,7 +43,7 @@ void XRay::checkIn(Bagage* bagage) {
     bool isContraband = false;
 
     if(isContraband)
-        dispatchTo(getRoute(contrabandPart_));
+        dispatch(bagage, getRoute(contrabandPart_));
     else
         dispatch(bagage);
 };
