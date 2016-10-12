@@ -4,18 +4,18 @@
 // -- RouteCheckpoint --------------------------------------------------------
 
 
-void RouteCheckpoint::checkIn(Bagage* bagage) {
-    dispatch(bagage);
+void RouteCheckpoint::checkIn(Baggage* baggage) {
+    dispatch(baggage);
 };
 
 
-void RouteCheckpoint::dispatch(Bagage* bagage) {
-    dispatch(bagage, getRoute(bagage->nextPart()));
+void RouteCheckpoint::dispatch(Baggage* baggage) {
+    dispatch(baggage, getRoute(baggage->nextPart()));
 };
 
 
-void RouteCheckpoint::dispatch(Bagage* bagage, ICheckpoint* checkpoint) {
-    checkpoint->checkIn(bagage);
+void RouteCheckpoint::dispatch(Baggage* baggage, ICheckpoint* checkpoint) {
+    checkpoint->checkIn(baggage);
 };
 
 
@@ -32,24 +32,24 @@ ICheckpoint* RouteCheckpoint::getRoute(int part) {
 // -- XRay -------------------------------------------------------------------
 
 
-void XRay::checkIn(Bagage* bagage) {
+void XRay::checkIn(Baggage* baggage) {
     bool isContraband = false;
 
     if(isContraband)
-        dispatch(bagage, contrabandBox_);
+        dispatch(baggage, contrabandBox_);
     else
-        dispatch(bagage);
+        dispatch(baggage);
 };
 
 
-// -- BagageBox --------------------------------------------------------------
+// -- BaggageBox --------------------------------------------------------------
 
 
-void BagageBox::checkIn(Bagage* bagage) {
-    content_.push_back(bagage);
+void BaggageBox::checkIn(Baggage* baggage) {
+    content_.push_back(baggage);
 };
 
 
-void BagageBox::collect() {
+void BaggageBox::collect() {
 
 };

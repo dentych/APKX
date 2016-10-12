@@ -2,12 +2,12 @@
 
 #include <map>
 #include <vector>
-#include "Bagage.hpp"
+#include "Baggage.hpp"
 
 
 class ICheckpoint {
 public:
-    virtual void checkIn(Bagage* bagage) = 0;
+    virtual void checkIn(Baggage* baggage) = 0;
 };
 
 
@@ -19,12 +19,12 @@ public:
 
 class RouteCheckpoint : public ICheckpoint {
 public:
-    void checkIn(Bagage* bagage);
+    void checkIn(Baggage* baggage);
     void addRoute(int part, ICheckpoint* checkpoint);
 protected:
     ICheckpoint* getRoute(int part);
-    void dispatch(Bagage* bagage);
-    void dispatch(Bagage* bagage, ICheckpoint* checkpoint);
+    void dispatch(Baggage* baggage);
+    void dispatch(Baggage* baggage, ICheckpoint* checkpoint);
 private:
     std::map<int, ICheckpoint*> routes_;
 };
@@ -33,16 +33,16 @@ private:
 class XRay : public RouteCheckpoint {
 public:
     XRay(ICheckpoint* contrabandBox) : contrabandBox_(contrabandBox) {}
-    void checkIn(Bagage* bagage);
+    void checkIn(Baggage* baggage);
 private:
     ICheckpoint* contrabandBox_;
 };
 
 
-class BagageBox : public ICheckpoint, public ICollectable {
+class BaggageBox : public ICheckpoint, public ICollectable {
 public:
-    void checkIn(Bagage* bagage);
+    void checkIn(Baggage* baggage);
     void collect();
 private:
-    std::vector<Bagage*> content_;
+    std::vector<Baggage*> content_;
 };
