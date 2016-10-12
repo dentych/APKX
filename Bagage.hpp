@@ -2,35 +2,37 @@
 // Created by dennis on 12/10/16.
 //
 
-#ifndef APKX_BAGAGE_H
-#define APKX_BAGAGE_H
+#pragma once
 
 #include <string>
 #include <vector>
 
-#define ARR_SIZE 4
-
 class Bagage {
 public:
-    void setDestination(int destination[]) {
-        std::copy(std::begin(destination), std::end(destination), std::begin(this->destination));
-    }
+    void setDestination(int destination[]);
 
-    int nextPart() {
-        if (counter < 0 || counter > ARR_SIZE - 1) {
-            return 0;
-        }
-        int value = destination[counter];
-        counter++;
-        return value;
-    }
+    int nextPart();
 
 protected:
-    Bagage() : counter(0) {
-    }
-
-    int destination[ARR_SIZE];
+    static const int array_size = 4;
+    int destination[array_size];
     int counter;
+
+    Bagage();
 };
 
-#endif //APKX_BAGAGE_H
+class Hash : Bagage {
+
+};
+
+class Heroin : Bagage {
+
+};
+
+class DonaldTrumpMerchandise : Bagage {
+
+};
+
+class Package : Bagage {
+
+};
