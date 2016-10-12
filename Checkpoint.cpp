@@ -1,7 +1,7 @@
 #include "Checkpoint.hpp"
 
 
-// --RouteCheckpoint ---------------------------------------------------------
+// -- RouteCheckpoint --------------------------------------------------------
 
 
 void RouteCheckpoint::checkIn(Bagage* bagage) {
@@ -10,23 +10,21 @@ void RouteCheckpoint::checkIn(Bagage* bagage) {
 
 
 void RouteCheckpoint::dispatch(Bagage* bagage) {
-    int part = bagage->nextPart();
-    Checkpoint* checkpoint = getRoute(part);
-    dispatch(bagage, checkpoint);
+    dispatch(bagage, getRoute(bagage->nextPart()));
 };
 
 
-void RouteCheckpoint::dispatch(Bagage* bagage, Checkpoint* checkpoint) {
+void RouteCheckpoint::dispatch(Bagage* bagage, ICheckpoint* checkpoint) {
     checkpoint->checkIn(bagage);
 };
 
 
-void RouteCheckpoint::addRoute(int part, Checkpoint* checkpoint) {
+void RouteCheckpoint::addRoute(int part, ICheckpoint* checkpoint) {
     routes_[part] = checkpoint;
 };
 
 
-Checkpoint* RouteCheckpoint::getRoute(int part) {
+ICheckpoint* RouteCheckpoint::getRoute(int part) {
     return routes_[part];
 };
 
@@ -34,16 +32,11 @@ Checkpoint* RouteCheckpoint::getRoute(int part) {
 // -- XRay -------------------------------------------------------------------
 
 
-XRay::XRay(Checkpoint* contrabandBox) {
-    addRoute(contrabandPart_, contrabandBox);
-}
-
-
 void XRay::checkIn(Bagage* bagage) {
     bool isContraband = false;
 
     if(isContraband)
-        dispatch(bagage, getRoute(contrabandPart_));
+        dispatch(bagage, contrabandBox_);
     else
         dispatch(bagage);
 };
@@ -57,6 +50,6 @@ void BagageBox::checkIn(Bagage* bagage) {
 };
 
 
-void BagageBox::empty() {
+void BagageBox::collect() {
 
 };

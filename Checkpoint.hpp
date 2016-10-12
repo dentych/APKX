@@ -1,41 +1,48 @@
 #pragma once
 
 #include <map>
+#include <vector>
 #include "Bagage.hpp"
 
 
-class Checkpoint {
+class ICheckpoint {
 public:
     virtual void checkIn(Bagage* bagage) = 0;
 };
 
 
-class RouteCheckpoint : public Checkpoint {
+class ICollectable {
+public:
+    virtual void collect() = 0;
+};
+
+
+class RouteCheckpoint : public ICheckpoint {
 public:
     void checkIn(Bagage* bagage);
-    void addRoute(int part, Checkpoint* checkpoint);
+    void addRoute(int part, ICheckpoint* checkpoint);
 protected:
-    Checkpoint* getRoute(int part);
+    ICheckpoint* getRoute(int part);
     void dispatch(Bagage* bagage);
-    void dispatch(Bagage* bagage, Checkpoint* checkpoint);
+    void dispatch(Bagage* bagage, ICheckpoint* checkpoint);
 private:
-    std::map<int, Checkpoint*> routes_;
+    std::map<int, ICheckpoint*> routes_;
 };
 
 
 class XRay : public RouteCheckpoint {
-private:
-    static const int contrabandPart_ = -1;
 public:
-    XRay(Checkpoint* contrabandBox);
+    XRay(ICheckpoint* contrabandBox) : contrabandBox_(contrabandBox) {}
     void checkIn(Bagage* bagage);
+private:
+    ICheckpoint* contrabandBox_;
 };
 
 
-class BagageBox : public Checkpoint {
-private:
-    std::vector<Bagage*> content_;
+class BagageBox : public ICheckpoint, public ICollectable {
 public:
     void checkIn(Bagage* bagage);
-    void empty();
+    void collect();
+private:
+    std::vector<Bagage*> content_;
 };
