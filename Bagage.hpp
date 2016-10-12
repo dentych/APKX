@@ -18,7 +18,7 @@ public:
         std::copy(std::begin(destination), std::end(destination), std::begin(this->destination));
     }
 
-    int nextDestination(int level) {
+    int nextDestination() {
         if (counter < 0 || counter > ARR_SIZE - 1) {
             return 0;
         }
