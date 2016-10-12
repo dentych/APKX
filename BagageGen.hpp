@@ -10,5 +10,5 @@ public:
 
     void nextBagage();
 private:
-    
+    std::vector<std::shared_ptr<Bagage>> bagageList;
 };
