@@ -5,7 +5,7 @@
 #include <array>
 #include "Baggage.hpp"
 
-Baggage::Baggage(int weight) : counter(0), weight(weight) {
+Baggage::Baggage(unsigned int weight) : counter(0), weight(weight) {
 }
 
 void Baggage::setDestination(std::array<int, array_size> destination) {
@@ -25,10 +25,10 @@ int Baggage::getWeight() {
     return weight;
 }
 
-Hash::Hash(int weight) : Baggage(weight) {}
+Hash::Hash(unsigned int weight) : Baggage(weight) {}
 
-Heroin::Heroin(int weight) : Baggage(weight) {}
+Heroin::Heroin(unsigned int weight) : Baggage(weight) {}
 
-DonaldTrumpMerchandise::DonaldTrumpMerchandise(int weight) : Baggage(weight) {}
+DonaldTrumpMerchandise::DonaldTrumpMerchandise(unsigned int weight) : Baggage(weight) {}
 
-Package::Package(int weight) : Baggage(weight) {}
+Package::Package(unsigned int weight) : Baggage(weight) {}

@@ -19,28 +19,28 @@ public:
 
 protected:
     std::array<int, array_size> destination;
-    int counter;
-    int weight;
+    unsigned int counter;
+    unsigned int weight;
 
-    Baggage(int weight);
+    Baggage(unsigned int weight);
 };
 
 class Hash : public Baggage {
 public:
-    Hash(int weight);
+    Hash(unsigned int weight);
 };
 
 class Heroin : public Baggage {
 public:
-    Heroin(int weight);
+    Heroin(unsigned int weight);
 };
 
 class DonaldTrumpMerchandise : public Baggage {
 public:
-    DonaldTrumpMerchandise(int weight);
+    DonaldTrumpMerchandise(unsigned int weight);
 };
 
 class Package : public Baggage {
 public:
-    Package(int weight);
+    Package(unsigned int weight);
 };
