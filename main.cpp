@@ -3,15 +3,15 @@
 
 
 ICheckpoint* setupCheckpointNetwork() {
-    BagageBox* terminal1 = new BagageBox();
-    BagageBox* terminal2 = new BagageBox();
-    BagageBox* terminal3 = new BagageBox();
-    BagageBox* terminal4 = new BagageBox();
-    BagageBox* terminal5 = new BagageBox();
-    BagageBox* terminal6 = new BagageBox();
+    BaggageBox* terminal1 = new BaggageBox();
+    BaggageBox* terminal2 = new BaggageBox();
+    BaggageBox* terminal3 = new BaggageBox();
+    BaggageBox* terminal4 = new BaggageBox();
+    BaggageBox* terminal5 = new BaggageBox();
+    BaggageBox* terminal6 = new BaggageBox();
 
     RouteCheckpoint* checkin = new RouteCheckpoint();
-    BagageBox* contrabandBox = new BagageBox();
+    BaggageBox* contrabandBox = new BaggageBox();
     XRay* xray = new XRay(contrabandBox);
 
     return checkin;
