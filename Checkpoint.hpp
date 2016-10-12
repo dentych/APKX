@@ -2,7 +2,11 @@
 
 #include <map>
 #include <vector>
+#include "meta.hpp"
 #include "Baggage.hpp"
+
+
+typedef TYPELIST3(Hash, Heroin, DonaldTrumpMerchandise) ContrabandTypes;
 
 
 class ICheckpoint {
@@ -33,6 +37,7 @@ private:
 class XRay : public RouteCheckpoint {
 public:
     XRay(ICheckpoint* contrabandBox) : contrabandBox_(contrabandBox) {}
+    template<typename T>
     void checkIn(Baggage* baggage);
 private:
     ICheckpoint* contrabandBox_;
