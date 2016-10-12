@@ -6,9 +6,6 @@
 #include "Baggage.hpp"
 
 
-typedef TYPELIST3(Hash, Heroin, DonaldTrumpMerchandise) ContrabandTypes;
-
-
 class ICheckpoint {
 public:
     virtual void checkIn(Baggage* baggage) = 0;
@@ -37,6 +34,7 @@ private:
 class XRay : public RouteCheckpoint {
 public:
     XRay(ICheckpoint* contrabandBox) : contrabandBox_(contrabandBox) {}
+
     template<typename T>
     void checkIn(T* baggage) {
         if(contains<ContrabandTypes, T>::value)
@@ -46,6 +44,7 @@ public:
     }
 private:
     ICheckpoint* contrabandBox_;
+    typedef TYPELIST3(Hash, Heroin, DonaldTrumpMerchandise) ContrabandTypes;
 };
 
 
