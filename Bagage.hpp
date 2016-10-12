@@ -8,12 +8,28 @@
 #include <string>
 #include <vector>
 
+#define ARR_SIZE 4
+
 class Bagage {
 public:
-    virtual void setDestination(int destination[]) = 0;
-    virtual int nextDestination(int level) = 0;
+    Bagage() = delete;
+
+    void setDestination(int destination[]) {
+        std::copy(std::begin(destination), std::end(destination), std::begin(this->destination));
+    }
+
+    int nextDestination(int level) {
+        if (counter < 0 || counter > ARR_SIZE - 1) {
+            return 0;
+        }
+        int value = destination[counter];
+        counter++;
+        return value;
+    }
+
 protected:
-    int destination[4];
+    int destination[ARR_SIZE];
+    int counter;
 };
 
 #endif //APKX_BAGAGE_H
