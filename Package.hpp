@@ -7,8 +7,9 @@
 #include <string>
 #include <vector>
 #include <array>
+#include "meta.hpp"
 
-class Baggage {
+class Package {
 public:
     static const int array_size = 4;
 
@@ -23,25 +24,27 @@ protected:
     unsigned int counter;
     unsigned int weight;
 
-    Baggage(unsigned int weight);
+    Package(unsigned int weight);
 };
 
-class Hash : public Baggage {
+class Hash : public Package {
 public:
     Hash(unsigned int weight);
 };
 
-class Heroin : public Baggage {
+class Heroin : public Package {
 public:
     Heroin(unsigned int weight);
 };
 
-class DonaldTrumpMerchandise : public Baggage {
+class DonaldTrumpMerchandise : public Package {
 public:
     DonaldTrumpMerchandise(unsigned int weight);
 };
 
-class Package : public Baggage {
+class LegalPackage : public Package {
 public:
-    Package(unsigned int weight);
+    LegalPackage(unsigned int weight);
 };
+
+typedef TYPELIST3(Hash, Heroin, DonaldTrumpMerchandise) ContrabandTypes;

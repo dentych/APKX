@@ -4,15 +4,14 @@
 
 #include "BaggageGen.hpp"
 
-BaggageGen::BaggageGen(ICheckpoint *checkIn) : checkIn(checkIn) {
+BaggageGen::BaggageGen(std::vector<ICheckpoint*> &checkIns) : checkIns(checkIns) {
 
 }
 
-BaggageGen::BaggageGen(std::shared_ptr<ICheckpoint> &checkIn) : checkIn(checkIn) {
-
+void BaggageGen::start() {
+    readBaggageFromFile();
 }
 
-void BaggageGen::nextBagage() {
+void BaggageGen::readBaggageFromFile() {
 
 }
-

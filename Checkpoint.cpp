@@ -4,17 +4,17 @@
 // -- RouteCheckpoint --------------------------------------------------------
 
 
-void RouteCheckpoint::checkIn(Baggage* baggage) {
+void RouteCheckpoint::checkIn(Package* baggage) {
     dispatch(baggage);
 };
 
 
-void RouteCheckpoint::dispatch(Baggage* baggage) {
+void RouteCheckpoint::dispatch(Package* baggage) {
     dispatch(baggage, getRoute(baggage->nextPart()));
 };
 
 
-void RouteCheckpoint::dispatch(Baggage* baggage, ICheckpoint* checkpoint) {
+void RouteCheckpoint::dispatch(Package* baggage, ICheckpoint* checkpoint) {
     checkpoint->checkIn(baggage);
 };
 
@@ -32,7 +32,7 @@ ICheckpoint* RouteCheckpoint::getRoute(unsigned int part) {
 // -- BaggageBox --------------------------------------------------------------
 
 
-void BaggageBox::checkIn(Baggage* baggage) {
+void BaggageBox::checkIn(Package* baggage) {
     content_.push_back(baggage);
 };
 

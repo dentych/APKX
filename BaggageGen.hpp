@@ -5,19 +5,17 @@
 #pragma once
 
 #include <memory>
-#include "Baggage.hpp"
+#include "Package.hpp"
 #include "Checkpoint.hpp"
 
 class BaggageGen {
 public:
-    BaggageGen(ICheckpoint *checkIn);
+    BaggageGen(std::vector<ICheckpoint*> &vector);
 
-    BaggageGen(std::shared_ptr<ICheckpoint> &checkIn);
-
-    void nextBagage();
-
-    void readBagage();
+    void start();
 private:
-    std::vector<std::shared_ptr<Baggage>> bagageList;
-    std::shared_ptr<ICheckpoint> checkIn;
+    std::vector<std::shared_ptr<Package>> bagageList;
+    std::vector<ICheckpoint*> checkIns;
+
+    void readBaggageFromFile();
 };

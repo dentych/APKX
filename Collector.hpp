@@ -11,7 +11,7 @@ public:
     void collectBaggage();
 
 protected:
-    std::vector<Baggage*> content_;
+    std::vector<Package*> content_;
     ICollectable* box_;
 };
 

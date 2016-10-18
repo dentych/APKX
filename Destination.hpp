@@ -1,7 +1,7 @@
 //
 // Created by stud on 10/17/16.
 //
-#include "Baggage.hpp"
+#include "Package.hpp"
 #include <vector>
 #include <string>
 
@@ -11,7 +11,7 @@ class Destination {
 
 public:
     Destination(std::string name);
-    std::vector<Baggage*> arrivedBaggage;
+    std::vector<Package*> arrivedBaggage;
     std::string getName();
 
 private:

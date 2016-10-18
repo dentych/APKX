@@ -3,5 +3,5 @@ project(APKX)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp Baggage.cpp Checkpoint.cpp BaggageGen.cpp Destination.cpp Collector.cpp)
+set(SOURCE_FILES main.cpp Package.cpp Checkpoint.cpp BaggageGen.cpp Destination.cpp Collector.cpp)
 add_executable(APKX ${SOURCE_FILES})

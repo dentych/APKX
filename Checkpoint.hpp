@@ -3,12 +3,12 @@
 #include <map>
 #include <vector>
 #include "meta.hpp"
-#include "Baggage.hpp"
+#include "Package.hpp"
 
 
 class ICheckpoint {
 public:
-    virtual void checkIn(Baggage* baggage) = 0;
+    virtual void checkIn(Package* baggage) = 0;
 };
 
 
@@ -20,12 +20,12 @@ public:
 
 class RouteCheckpoint : public ICheckpoint {
 public:
-    void checkIn(Baggage* baggage);
+    void checkIn(Package* baggage);
     void addRoute(unsigned int part, ICheckpoint* checkpoint);
 protected:
     ICheckpoint* getRoute(unsigned int part);
-    void dispatch(Baggage* baggage);
-    void dispatch(Baggage* baggage, ICheckpoint* checkpoint);
+    void dispatch(Package* baggage);
+    void dispatch(Package* baggage, ICheckpoint* checkpoint);
 private:
     std::map<unsigned int, ICheckpoint*> routes_;
 };
@@ -44,14 +44,13 @@ public:
     }
 private:
     ICheckpoint* contrabandBox_;
-    typedef TYPELIST3(Hash, Heroin, DonaldTrumpMerchandise) ContrabandTypes;
 };
 
 
 class BaggageBox : public ICheckpoint, public ICollectable {
 public:
-    void checkIn(Baggage* baggage);
+    void checkIn(Package* baggage);
     void collect();
 private:
-    std::vector<Baggage*> content_;
+    std::vector<Package*> content_;
 };
