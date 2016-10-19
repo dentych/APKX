@@ -3,9 +3,12 @@
 #include <map>
 #include <vector>
 #include <iostream>
+#include <boost/signals2.hpp>
 #include "meta.hpp"
 #include "Package.hpp"
-#include "Destination.hpp"
+
+
+typedef std::string TDestinationAddress;
 
 
 class ICheckpoint {
@@ -58,6 +61,7 @@ class BaggageBox : public ICheckpoint, public ICollectable {
 public:
     void checkIn(Package *baggage);
     void collect();
+    boost::signals2::signal<void ()> signal;
 private:
     std::vector<Package*> content_;
 };

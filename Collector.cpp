@@ -11,22 +11,6 @@ void Collector::collectBaggage() {
 
 }
 
-Airplane::Airplane(ICollectable* box, Destination* destination) {
-    box_ = box;
-    destination_ = destination;
+void Airplane::operator()() {
+    std::cout << "Signal received!" << std::endl;
 }
-
-void Airplane::putBaggage() {
-
-    for(int i = 0; i < content_.size(); i++) {
-        destination_->arrivedBaggage.push_back(content_.at(i));
-    }
-
-    content_.clear();
-}
-
-
-Police::Police(ICollectable *box) {
-    box_ = box;
-}
-

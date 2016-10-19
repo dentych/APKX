@@ -1,13 +1,18 @@
 #include <iostream>
 #include "Checkpoint.hpp"
 #include "BaggageGen.hpp"
+#include "Destination.hpp"
+#include "Collector.hpp"
 
-static const TDestinationAddress DEST_DEN = "DEN";
-static const TDestinationAddress DEST_GER = "GER";
-static const TDestinationAddress DEST_GBR = "GBR";
-static const TDestinationAddress DEST_FRA = "FRA";
+static const TDestinationAddress DEST_DEN = "DENMARK";
+static const TDestinationAddress DEST_GER = "GERMANY";
+static const TDestinationAddress DEST_GBR = "GREAT BRITAIN";
+static const TDestinationAddress DEST_FRA = "FRANCE";
 static const TDestinationAddress DEST_USA = "USA";
-static const TDestinationAddress DEST_RHO = "RHO";
+static const TDestinationAddress DEST_RHO = "RHODOS";
+static const TDestinationAddress DEST_SPA = "SPAIN";
+static const TDestinationAddress DEST_RUS = "RUSSIA";
+static const TDestinationAddress DEST_SWE = "SWEDEN";
 
 
 int main() {
@@ -34,9 +39,22 @@ int main() {
 
     XRay* xray = new XRay(contrabandBox, checkpoint1);
 
+    Destination* dest1 = new Destination(DEST_DEN);
+    Destination* dest2 = new Destination(DEST_FRA);
+    Destination* dest3 = new Destination(DEST_GBR);
+    Destination* dest4 = new Destination(DEST_GER);
+    Destination* dest5 = new Destination(DEST_USA);
+    Destination* dest6 = new Destination(DEST_RHO);
+
+    Airplane *air1 = new Airplane(terminal1, dest1);
+    Airplane *air2 = new Airplane(terminal2, dest2);
+    Airplane *air3 = new Airplane(terminal3, dest3);
+    Airplane *air4 = new Airplane(terminal4, dest4);
+    Airplane *air5 = new Airplane(terminal5, dest5);
+    Airplane *air6 = new Airplane(terminal6, dest6);
+
     BaggageGen bg(xray);
     bg.start();
-
 
     std::cout << "Hello, World!" << std::endl;
     return 0;

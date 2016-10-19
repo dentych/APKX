@@ -8,6 +8,7 @@
 
 class Collector {
 public:
+    Collector(ICollectable *box) : box_(box) {}
     void collectBaggage();
 
 protected:
@@ -16,15 +17,14 @@ protected:
 };
 
 class Airplane : public Collector {
-
 public:
-    Airplane(ICollectable* box, Destination* destination);
-    void putBaggage();
+    Airplane(ICollectable* box, Destination* destination) : Collector(box), destination_(destination) {}
+    void operator()();
 private:
     Destination* destination_;
 
 };
 
 class Police : public Collector {
-    Police(ICollectable* box);
+    Police(ICollectable* box) : Collector(box) {}
 };
