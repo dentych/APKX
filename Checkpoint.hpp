@@ -5,6 +5,7 @@
 #include <iostream>
 #include "meta.hpp"
 #include "Package.hpp"
+#include "Destination.hpp"
 
 
 class ICheckpoint {
@@ -21,30 +22,35 @@ public:
 
 class RouteCheckpoint : public ICheckpoint {
 public:
+    RouteCheckpoint(ICheckpoint* nextCheckpoint) : nextCheckpoint_(nextCheckpoint) {}
     void checkIn(Package *baggage);
-    void addRoute(unsigned int part, ICheckpoint* checkpoint);
+    void addRoute(TDestinationAddress address, ICheckpoint* checkpoint);
 protected:
-    ICheckpoint* getRoute(unsigned int part);
+    ICheckpoint* getRoute(TDestinationAddress address);
     void dispatch(Package* baggage);
     void dispatch(Package* baggage, ICheckpoint* checkpoint);
+    bool hasRoute(TDestinationAddress address);
 private:
-    std::map<unsigned int, ICheckpoint*> routes_;
+    std::map<TDestinationAddress, ICheckpoint*> routes_;
+    ICheckpoint* nextCheckpoint_;
 };
 
 
-class XRay : public RouteCheckpoint {
+class XRay {
 public:
-    XRay(ICheckpoint* contrabandBox) : contrabandBox_(contrabandBox) {}
+    XRay(ICheckpoint* contrabandBox, ICheckpoint* checkpoint)
+            : contrabandBox_(contrabandBox), checkpoint_(checkpoint) {}
 
     template<typename T>
     void checkIn(T* baggage) {
         if(contains<ContrabandTypes, T>::value)
-            dispatch(baggage, contrabandBox_);
+            contrabandBox_->checkIn(baggage);
         else
-            dispatch(baggage);
+            checkpoint_->checkIn(baggage);
     }
 private:
     ICheckpoint* contrabandBox_;
+    ICheckpoint* checkpoint_;
 };
 
 

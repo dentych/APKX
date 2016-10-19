@@ -8,9 +8,6 @@
 #include <queue>
 #include "BaggageGen.hpp"
 
-BaggageGen::BaggageGen(XRay* checkIn) : checkIn_(checkIn) {
-
-}
 
 void BaggageGen::start() {
     readBaggageFromFile();

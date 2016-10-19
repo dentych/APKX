@@ -7,6 +7,8 @@
 
 #pragma once
 
+typedef std::string TDestinationAddress;
+
 class Destination {
 
 public:

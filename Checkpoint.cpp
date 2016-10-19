@@ -10,8 +10,11 @@ void RouteCheckpoint::checkIn(Package* baggage) {
 
 
 void RouteCheckpoint::dispatch(Package* baggage) {
-    // TODO: Fix
-//    dispatch(baggage, getRoute(baggage->nextPart()));
+    TDestinationAddress address = baggage->getDestination();
+    if(hasRoute(address))
+        dispatch(baggage, getRoute(address));
+    else
+        dispatch(baggage, nextCheckpoint_);
 };
 
 
@@ -20,13 +23,17 @@ void RouteCheckpoint::dispatch(Package* baggage, ICheckpoint* checkpoint) {
 };
 
 
-void RouteCheckpoint::addRoute(unsigned int part, ICheckpoint* checkpoint) {
-    routes_[part] = checkpoint;
+void RouteCheckpoint::addRoute(TDestinationAddress address, ICheckpoint* checkpoint) {
+    routes_[address] = checkpoint;
 };
 
+bool RouteCheckpoint::hasRoute(TDestinationAddress address) {
+    return routes_.count(address) == 1;
+}
 
-ICheckpoint* RouteCheckpoint::getRoute(unsigned int part) {
-    return routes_[part];
+
+ICheckpoint* RouteCheckpoint::getRoute(TDestinationAddress address) {
+    return routes_[address];
 };
 
 
