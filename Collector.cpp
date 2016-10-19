@@ -11,6 +11,11 @@ void Collector::collectBaggage() {
 
 }
 
+Airplane::Airplane(ICollectable *box, Destination *destination) : Collector(box), destination_(destination) {
+    std::cout << "Connecting" << std::endl;
+    box_->signal.connect(*this);
+}
+
 void Airplane::operator()() {
     std::cout << "Signal received!" << std::endl;
 }

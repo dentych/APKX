@@ -18,11 +18,11 @@ protected:
 
 class Airplane : public Collector {
 public:
-    Airplane(ICollectable* box, Destination* destination) : Collector(box), destination_(destination) {}
+    Airplane(ICollectable* box, Destination* destination);
+
     void operator()();
 private:
     Destination* destination_;
-
 };
 
 class Police : public Collector {

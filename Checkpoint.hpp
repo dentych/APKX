@@ -20,6 +20,8 @@ public:
 class ICollectable {
 public:
     virtual void collect() = 0;
+
+    boost::signals2::signal<void ()> signal;
 };
 
 
