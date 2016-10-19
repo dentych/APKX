@@ -1,0 +1,5 @@
+LegalPackage FRA 2100
+LegalPackage DEN 8200
+Hash GER 1200
+LegalPackage FRA 2100
+Heroin FRA 800

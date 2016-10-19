@@ -6,30 +6,29 @@
 #include <array>
 #include "Package.hpp"
 
-Package::Package(unsigned int weight) : counter(0), weight(weight) {
+Package::Package(std::string destination, unsigned int weight) : destination(destination), weight(weight) {
 }
 
-void Package::setDestination(std::array<int, array_size> destination) {
-    std::copy(std::begin(destination), std::end(destination), std::begin(this->destination));
+std::string Package::getDestination() const {
+    return destination;
 }
 
-int Package::nextPart() {
-    if (counter < 0 || counter > array_size - 1) {
-        return 0;
-    }
-    int value = destination[counter++];
-
-    return value;
-}
-
-int Package::getWeight() {
+int Package::getWeight() const {
     return weight;
 }
 
-Hash::Hash(unsigned int weight) : Package(weight) {}
+Package::~Package() {
 
-Heroin::Heroin(unsigned int weight) : Package(weight) {}
+}
 
-DonaldTrumpMerchandise::DonaldTrumpMerchandise(unsigned int weight) : Package(weight) {}
+Hash::Hash(std::string destination, unsigned int weight)
+        : Package(destination, weight) {}
 
-LegalPackage::LegalPackage(unsigned int weight) : Package(weight) {}
+Heroin::Heroin(std::string destination, unsigned int weight)
+        : Package(destination, weight) {}
+
+DonaldTrumpMerchandise::DonaldTrumpMerchandise(std::string destination, unsigned int weight)
+        : Package(destination, weight) {}
+
+LegalPackage::LegalPackage(std::string destination, unsigned int weight)
+        : Package(destination, weight) {}

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Checkpoint.hpp"
+#include "BaggageGen.hpp"
 
 
 ICheckpoint* setupCheckpointNetwork() {
@@ -19,8 +20,12 @@ ICheckpoint* setupCheckpointNetwork() {
 
 
 int main() {
-    ICheckpoint* checkin = setupCheckpointNetwork();
-
+//    ICheckpoint* checkin = setupCheckpointNetwork();
+    std::vector<ICheckpoint*> checkpoints;
+    ICheckpoint *cp = new RouteCheckpoint();
+    checkpoints.push_back(cp);
+    BaggageGen bg(checkpoints);
+    bg.start();
     std::cout << "Hello, World!" << std::endl;
     return 0;
 }

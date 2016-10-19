@@ -13,38 +13,38 @@ class Package {
 public:
     static const int array_size = 4;
 
-    void setDestination(std::array<int, array_size>);
+    std::string getDestination() const;
 
-    int nextPart();
+    int getWeight() const;
 
-    int getWeight();
+    virtual ~Package();
 
 protected:
-    std::array<int, array_size> destination;
+    std::string destination;
     unsigned int counter;
     unsigned int weight;
 
-    Package(unsigned int weight);
+    Package(std::string destination, unsigned int weight);
 };
 
 class Hash : public Package {
 public:
-    Hash(unsigned int weight);
+    Hash(std::string destination, unsigned int weight);
 };
 
 class Heroin : public Package {
 public:
-    Heroin(unsigned int weight);
+    Heroin(std::string destination, unsigned int weight);
 };
 
 class DonaldTrumpMerchandise : public Package {
 public:
-    DonaldTrumpMerchandise(unsigned int weight);
+    DonaldTrumpMerchandise(std::string destination, unsigned int weight);
 };
 
 class LegalPackage : public Package {
 public:
-    LegalPackage(unsigned int weight);
+    LegalPackage(std::string destination, unsigned int weight);
 };
 
 typedef TYPELIST3(Hash, Heroin, DonaldTrumpMerchandise) ContrabandTypes;

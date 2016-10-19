@@ -10,7 +10,8 @@ void RouteCheckpoint::checkIn(Package* baggage) {
 
 
 void RouteCheckpoint::dispatch(Package* baggage) {
-    dispatch(baggage, getRoute(baggage->nextPart()));
+    // TODO: Fix
+//    dispatch(baggage, getRoute(baggage->nextPart()));
 };
 
 
