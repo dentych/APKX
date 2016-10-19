@@ -5,26 +5,35 @@
 #include "Checkpoint.hpp"
 #include "Destination.hpp"
 
-
 class Collector {
 public:
     Collector(ICollectable *box) : box_(box) {}
-    void collectBaggage();
-
+    virtual void collectBaggage();
+    virtual void leCallback() = 0;
+    virtual void operator()() = 0;
 protected:
-    std::vector<Package*> content_;
+    std::vector<std::shared_ptr<Package>> content_;
     ICollectable* box_;
+    boost::signals2::connection con;
 };
 
 class Airplane : public Collector {
 public:
-    Airplane(ICollectable* box, Destination* destination);
+    Airplane(ICollectable *box, Destination *destination, unsigned int maxWeight);
+
+    void collectBaggage();
 
     void operator()();
+
+    void leCallback();
 private:
     Destination* destination_;
+    unsigned int maxWeight_;
+    unsigned int weight_;
+
+    void gotoDestination();
 };
 
 class Police : public Collector {
-    Police(ICollectable* box) : Collector(box) {}
+    Police(BaggageBox* box) : Collector(box) {}
 };

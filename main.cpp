@@ -35,7 +35,7 @@ int main() {
     checkpoint2->addRoute(DEST_USA, terminal5);
     checkpoint2->addRoute(DEST_RHO, terminal6);
 
-    BaggageBox* contrabandBox = new BaggageBox();
+    BaggageBox* contrabandBox = new BaggageBox("ContrabandBox");
 
     XRay* xray = new XRay(contrabandBox, checkpoint1);
 
@@ -46,13 +46,14 @@ int main() {
     Destination* dest5 = new Destination(DEST_USA);
     Destination* dest6 = new Destination(DEST_RHO);
 
-    Airplane *air1 = new Airplane(terminal1, dest1);
-    Airplane *air2 = new Airplane(terminal2, dest2);
-    Airplane *air3 = new Airplane(terminal3, dest3);
-    Airplane *air4 = new Airplane(terminal4, dest4);
-    Airplane *air5 = new Airplane(terminal5, dest5);
-    Airplane *air6 = new Airplane(terminal6, dest6);
+    Airplane *air1 = new Airplane(terminal1, dest1, 100);
+    Airplane *air2 = new Airplane(terminal2, dest2, 100);
+    Airplane *air3 = new Airplane(terminal3, dest3, 100);
+    Airplane *air4 = new Airplane(terminal4, dest4, 100);
+    Airplane *air5 = new Airplane(terminal5, dest5, 100);
+    Airplane *air6 = new Airplane(terminal6, dest6, 100);
 
+    std::cout << "Finding num_slots first: " << terminal1->signal_.num_slots() << std::endl;
     BaggageGen bg(xray);
     bg.start();
 

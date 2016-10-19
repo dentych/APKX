@@ -12,8 +12,8 @@ class Destination : public ICheckpoint {
 public:
     Destination(std::string name) : name_(name) {}
     std::string getName();
-    void checkIn(Package* baggage);
+    void checkIn(std::shared_ptr<Package> baggage);
 private:
-    std::vector<Package*> arrivedBaggage_;
+    std::vector<std::shared_ptr<Package>> arrivedBaggage_;
     std::string name_;
 };

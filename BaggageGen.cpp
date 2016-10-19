@@ -15,6 +15,7 @@ void BaggageGen::start() {
 
 void BaggageGen::readBaggageFromFile() {
     std::vector<Temp> tempList;
+//    std::ifstream file("/home/dennis/Documents/git/APKX/packages.txt"); DENNIS VERSION
     std::ifstream file("packages.txt");
     std::istream_iterator<Temp> start(file);
     std::istream_iterator<Temp> eof;
@@ -35,13 +36,13 @@ void BaggageGen::readBaggageFromFile() {
 
 void BaggageGen::generatePackageType(Temp temp) {
     if (temp.type == "LegalPackage") {
-        checkIn_->checkIn(new LegalPackage(temp.destination, temp.weight));
+        checkIn_->checkIn(std::shared_ptr<LegalPackage>(new LegalPackage(temp.destination, temp.weight)));
     } else if (temp.type == "Hash") {
-        checkIn_->checkIn(new Hash(temp.destination, temp.weight));
+        checkIn_->checkIn(std::shared_ptr<Hash>(new Hash(temp.destination, temp.weight)));
     } else if (temp.type == "Heroin") {
-        checkIn_->checkIn(new Heroin(temp.destination, temp.weight));
+        checkIn_->checkIn(std::shared_ptr<Heroin>(new Heroin(temp.destination, temp.weight)));
     } else if (temp.type == "DonaldTrumpMerchandise") {
-        checkIn_->checkIn(new DonaldTrumpMerchandise(temp.destination, temp.weight));
+        checkIn_->checkIn(std::shared_ptr<DonaldTrumpMerchandise>(new DonaldTrumpMerchandise(temp.destination, temp.weight)));
     }
 }
 

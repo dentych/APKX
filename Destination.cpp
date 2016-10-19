@@ -10,7 +10,7 @@ std::string Destination::getName() {
 }
 
 
-void Destination::checkIn(Package *baggage) {
+void Destination::checkIn(std::shared_ptr<Package> baggage) {
     std::cout << "Destination " << getName() << " received " << baggage->getDestination() << std::endl;
     arrivedBaggage_.push_back(baggage);
 };
