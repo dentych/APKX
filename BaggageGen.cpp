@@ -8,7 +8,7 @@
 #include <queue>
 #include "BaggageGen.hpp"
 
-BaggageGen::BaggageGen(std::vector<ICheckpoint *> &checkIns) : checkIns(checkIns) {
+BaggageGen::BaggageGen(XRay* checkIn) : checkIn_(checkIn) {
 
 }
 
@@ -38,13 +38,13 @@ void BaggageGen::readBaggageFromFile() {
 
 void BaggageGen::generatePackageType(Temp temp) {
     if (temp.type == "LegalPackage") {
-        packageList.push_back(std::shared_ptr<LegalPackage>(new LegalPackage(temp.destination, temp.weight)));
+        checkIn_->checkIn(new LegalPackage(temp.destination, temp.weight));
     } else if (temp.type == "Hash") {
-        packageList.push_back(std::shared_ptr<Hash>(new Hash(temp.destination, temp.weight)));
+        checkIn_->checkIn(new Hash(temp.destination, temp.weight));
     } else if (temp.type == "Heroin") {
-        packageList.push_back(std::shared_ptr<Heroin>(new Heroin(temp.destination, temp.weight)));
+        checkIn_->checkIn(new Heroin(temp.destination, temp.weight));
     } else if (temp.type == "DonaldTrumpMerchandise") {
-        packageList.push_back(std::shared_ptr<DonaldTrumpMerchandise>(new DonaldTrumpMerchandise(temp.destination, temp.weight)));
+        checkIn_->checkIn(new DonaldTrumpMerchandise(temp.destination, temp.weight));
     }
 }
 

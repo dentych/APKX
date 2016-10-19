@@ -22,10 +22,11 @@ ICheckpoint* setupCheckpointNetwork() {
 int main() {
 //    ICheckpoint* checkin = setupCheckpointNetwork();
     std::vector<ICheckpoint*> checkpoints;
-    ICheckpoint *cp = new RouteCheckpoint();
-    checkpoints.push_back(cp);
-    BaggageGen bg(checkpoints);
+    BaggageBox* contrabandBox = new BaggageBox();
+    XRay *checkin = new XRay(contrabandBox);
+    BaggageGen bg(checkin);
     bg.start();
+
     std::cout << "Hello, World!" << std::endl;
     return 0;
 }

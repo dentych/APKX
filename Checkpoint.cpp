@@ -33,7 +33,8 @@ ICheckpoint* RouteCheckpoint::getRoute(unsigned int part) {
 // -- BaggageBox --------------------------------------------------------------
 
 
-void BaggageBox::checkIn(Package* baggage) {
+void BaggageBox::checkIn(Package *baggage) {
+    std::cout << "BaggageBox received: " << baggage->getDestination() << std::endl;
     content_.push_back(baggage);
 };
 

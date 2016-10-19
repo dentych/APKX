@@ -2,6 +2,7 @@
 
 #include <map>
 #include <vector>
+#include <iostream>
 #include "meta.hpp"
 #include "Package.hpp"
 
@@ -20,7 +21,7 @@ public:
 
 class RouteCheckpoint : public ICheckpoint {
 public:
-    void checkIn(Package* baggage);
+    void checkIn(Package *baggage);
     void addRoute(unsigned int part, ICheckpoint* checkpoint);
 protected:
     ICheckpoint* getRoute(unsigned int part);
@@ -49,7 +50,7 @@ private:
 
 class BaggageBox : public ICheckpoint, public ICollectable {
 public:
-    void checkIn(Package* baggage);
+    void checkIn(Package *baggage);
     void collect();
 private:
     std::vector<Package*> content_;
