@@ -2,7 +2,7 @@
 #include "Checkpoint.hpp"
 #include "BaggageGen.hpp"
 #include "Destination.hpp"
-#include "Collector.hpp"
+#include "Airplane.hpp"
 
 static const TDestinationAddress DEST_DEN = "DEN";
 static const TDestinationAddress DEST_GER = "GER";

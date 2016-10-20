@@ -1,10 +1,11 @@
-//
-// Created by stud on 10/17/16.
-//
+#include "Airplane.hpp"
 
-#include "Collector.hpp"
 
-void Collector::collectBaggage() {
+void Airplane::Airplane(ICollectable *source, Destination *destination, unsigned int maxWeight) {
+}
+
+
+void Collector::loadBaggage() {
     //collect baggage from and insert into vector - to be implemented
     std::vector<std::shared_ptr<Package>> itemsCollected = box_->collect();
     for (auto item : itemsCollected) {
@@ -12,12 +13,14 @@ void Collector::collectBaggage() {
     }
 }
 
+
 Airplane::Airplane(ICollectable *box, Destination *destination, unsigned int maxWeight)
         : Collector(box), destination_(destination), maxWeight_(maxWeight), weight_(0) {
     std::cout << "Connecting" << std::endl;
     con = box_->signal_.connect(std::bind(&Collector::leCallback, this));
     std::cout << "Num slots: " << box_->signal_.num_slots() << std::endl;
 }
+
 
 void Airplane::collectBaggage() {
     std::vector<std::shared_ptr<Package>> itemsCollected = box_->collect();
@@ -34,9 +37,11 @@ void Airplane::collectBaggage() {
     }
 }
 
+
 void Airplane::operator()() {
     std::cout << "Signal received!" << std::endl;
 }
+
 
 void Airplane::gotoDestination() {
     for (auto item : content_) {
@@ -45,6 +50,7 @@ void Airplane::gotoDestination() {
 
     content_.clear();
 }
+
 
 void Airplane::leCallback() {
     std::cout << "Signal received!" << std::endl;
