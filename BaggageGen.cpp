@@ -13,6 +13,7 @@ void BaggageGen::start() {
     readBaggageFromFile();
 }
 
+
 void BaggageGen::readBaggageFromFile() {
     std::vector<Temp> tempList;
 
@@ -27,17 +28,18 @@ void BaggageGen::readBaggageFromFile() {
     }
 }
 
+
 void BaggageGen::generatePackageType(Temp temp) {
-    if (temp.type == "LegalPackage") {
-        checkIn_->checkIn(std::shared_ptr<LegalPackage>(new LegalPackage(temp.destination, temp.weight)));
-    } else if (temp.type == "Hash") {
-        checkIn_->checkIn(std::shared_ptr<Hash>(new Hash(temp.destination, temp.weight)));
-    } else if (temp.type == "Heroin") {
-        checkIn_->checkIn(std::shared_ptr<Heroin>(new Heroin(temp.destination, temp.weight)));
-    } else if (temp.type == "DonaldTrumpMerchandise") {
-        checkIn_->checkIn(std::shared_ptr<DonaldTrumpMerchandise>(new DonaldTrumpMerchandise(temp.destination, temp.weight)));
-    }
+    if (temp.type == "LegalPackage")
+        checkIn_->checkIn(createPackage<LegalPackage>(temp));
+    else if (temp.type == "Hash")
+        checkIn_->checkIn(createPackage<Hash>(temp));
+    else if (temp.type == "Heroin")
+        checkIn_->checkIn(createPackage<Heroin>(temp));
+    else if (temp.type == "DonaldTrumpMerchandise")
+        checkIn_->checkIn(createPackage<DonaldTrumpMerchandise>(temp));
 }
+
 
 std::istream &operator>>(std::istream &is, Temp &temp) {
     return is >> temp.type >> temp.destination >> temp.weight;
