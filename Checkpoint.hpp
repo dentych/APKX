@@ -7,7 +7,6 @@
 #include <boost/statechart/state_machine.hpp>
 #include <boost/statechart/simple_state.hpp>
 #include <mutex>
-#include "meta.hpp"
 #include "Package.hpp"
 
 
@@ -16,14 +15,14 @@ typedef std::string TDestinationAddress;
 
 class ICheckpoint {
 public:
-    virtual void checkIn(std::shared_ptr<Package> baggage) = 0;
+    virtual void checkIn(TPackage baggage) = 0;
 };
 
 
 class ICollectable {
     typedef boost::signals2::signal<void()> TSignal;
 public:
-    virtual std::vector<std::shared_ptr<Package>>::const_iterator collector() = 0;
+    virtual std::vector<TPackage>::const_iterator collector() = 0;
 
     TSignal signal_;
 protected:
@@ -35,16 +34,16 @@ class RouteCheckpoint : public ICheckpoint {
 public:
     RouteCheckpoint(ICheckpoint *nextCheckpoint) : nextCheckpoint_(nextCheckpoint) {}
 
-    void checkIn(std::shared_ptr<Package> baggage);
+    void checkIn(TPackage baggage);
 
     void addRoute(TDestinationAddress address, ICheckpoint *checkpoint);
 
 protected:
     ICheckpoint *getRoute(TDestinationAddress address);
 
-    void dispatch(std::shared_ptr<Package> baggage);
+    void dispatch(TPackage baggage);
 
-    void dispatch(std::shared_ptr<Package> baggage, ICheckpoint *checkpoint);
+    void dispatch(TPackage baggage, ICheckpoint *checkpoint);
 
     bool hasRoute(TDestinationAddress address);
 
@@ -53,24 +52,6 @@ private:
     ICheckpoint *nextCheckpoint_;
 };
 
-class XRay {
-public:
-    XRay(ICheckpoint *contrabandBox, ICheckpoint *checkpoint)
-            : contrabandBox_(contrabandBox), checkpoint_(checkpoint) {}
-
-    template<typename T>
-    void checkIn(std::shared_ptr<T> baggage) {
-        if (contains<ContrabandTypes, T>::value) {
-            contrabandBox_->checkIn(baggage);
-        } else {
-            checkpoint_->checkIn(baggage);
-        }
-    }
-
-private:
-    ICheckpoint *contrabandBox_;
-    ICheckpoint *checkpoint_;
-};
 
 
 class BaggageBox : public ICheckpoint, public ICollectable {
@@ -79,13 +60,13 @@ public:
 
     BaggageBox(std::string name) : name_(name) {}
 
-    void checkIn(std::shared_ptr<Package> baggage);
+    void checkIn(TPackage baggage);
 
-    std::vector<std::shared_ptr<Package>>::const_iterator collector();
+    std::vector<TPackage>::const_iterator collector();
 
     std::mutex getLock();
 
 private:
-    std::vector<std::shared_ptr<Package>> content_;
+    std::vector<TPackage> content_;
     std::string name_;
 };

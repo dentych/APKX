@@ -1,7 +1,3 @@
-//
-// Created by stud on 10/17/16.
-//
-
 #include "Destination.hpp"
 
 
@@ -10,7 +6,7 @@ std::string Destination::getName() {
 }
 
 
-void Destination::checkIn(std::shared_ptr<Package> baggage) {
+void Destination::checkIn(TPackage baggage) {
     std::cout << "Destination " << getName() << " received " << baggage->getDestination() << std::endl;
     arrivedBaggage_.push_back(baggage);
 };

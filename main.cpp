@@ -1,4 +1,5 @@
 #include <iostream>
+#include <pthread.h>
 #include "Checkpoint.hpp"
 #include "BaggageGen.hpp"
 #include "Destination.hpp"
@@ -13,6 +14,16 @@ static const TDestinationAddress DEST_RHO = "RHO";
 static const TDestinationAddress DEST_SPA = "SPA";
 static const TDestinationAddress DEST_RUS = "RUS";
 static const TDestinationAddress DEST_SWE = "SWE";
+
+
+struct BaggageGeneratorThreadArgs {
+    XRay* xray;
+};
+
+
+void* baggageGeneratorThread(void* arg) {
+
+}
 
 
 int main() {
@@ -57,6 +68,14 @@ int main() {
     BaggageGen bg(xray);
     bg.start();
 
-    std::cout << "Hello, World!" << std::endl;
+    pthread_t generatorThread;
+    BaggageGeneratorThreadArgs args;
+    args.xray = xray;
+
+    pthread_create(&generatorThread, NULL, baggageGeneratorThread, (void*) &args);
+    //pthread_join(generatorThread, NULL);
+
+    xray->process();
+
     return 0;
 }

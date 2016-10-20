@@ -6,7 +6,7 @@
 
 #include <memory>
 #include "Package.hpp"
-#include "Checkpoint.hpp"
+#include "XRay.hpp"
 
 class Temp;
 

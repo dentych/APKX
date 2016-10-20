@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-std=c++11
+CXXFLAGS=-std=c++11 -pthread
 EXECUTEABLE=john
 SOURCES=$(wildcard *.cpp)
 DEPENDENCIES=$(SOURCES:.cpp=.o)
@@ -13,5 +13,6 @@ all: $(DEPENDENCIES)
 
 clean:
 	rm -f $(DEPENDENCIES) $(EXECUTEABLE)
+	rm -f *.gch
 
 -include $(DEPS)
