@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <array>
+#include <memory>
 #include "meta.hpp"
 
 class Package {
@@ -48,3 +49,5 @@ public:
 };
 
 typedef TYPELIST3(Hash, Heroin, DonaldTrumpMerchandise) ContrabandTypes;
+typedef std::shared_ptr<Package> TPackage;
+typedef std::vector<std::shared_ptr<Package>> TPackageVector;
