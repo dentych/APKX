@@ -15,8 +15,8 @@ static const TDestinationAddress DEST_SPA = "SPA";
 static const TDestinationAddress DEST_RUS = "RUS";
 static const TDestinationAddress DEST_SWE = "SWE";
 
-static const std::string PackageFilePath = "packages.txt";
-
+//static const std::string PackageFilePath = "packages.txt";
+static const std::string PackageFilePath = "/home/dennis/Documents/git/APKX/packages.txt";
 
 struct BaggageGeneratorThreadArgs {
     XRay* xray;
@@ -63,6 +63,12 @@ XRay* createInfrastructure() {
     Airplane *air4 = new Airplane(terminal4, dest4, 100);
     Airplane *air5 = new Airplane(terminal5, dest5, 100);
     Airplane *air6 = new Airplane(terminal6, dest6, 100);
+    air1->initiate();
+    air2->initiate();
+    air3->initiate();
+    air4->initiate();
+    air5->initiate();
+    air6->initiate();
 
     BaggageBox* contrabandBox = new BaggageBox("ContrabandBox");
 

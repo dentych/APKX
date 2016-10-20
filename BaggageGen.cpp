@@ -25,14 +25,6 @@ void BaggageGen::readBaggageFromFile() {
     for (auto item : tempList) {
         generatePackageType(item);
     }
-
-    for (auto item : packageList) {
-        std::cout << typeid(item.get()).name() << std::endl;
-        if (typeid(item.get()) == typeid(LegalPackage)) {
-            std::cout << "This is legal!" << std::endl;
-        }
-        std::cout << "Dest: " << item->getDestination() << std::endl;
-    }
 }
 
 void BaggageGen::generatePackageType(Temp temp) {

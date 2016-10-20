@@ -16,7 +16,6 @@ public:
         : checkIn_(checkIn), filePath_(filePath) {}
     void start();
 private:
-    std::vector<TPackage> packageList;
     XRay* checkIn_;
     std::string filePath_;
 
