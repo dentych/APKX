@@ -42,13 +42,12 @@ ICheckpoint* RouteCheckpoint::getRoute(TDestinationAddress address) {
 void BaggageBox::checkIn(std::shared_ptr<Package> baggage) {
     std::string name = name_.length() > 0 ? name_ : "BaggageBox";
     std::cout << name << " received: " << baggage->getDestination() << std::endl;
+    std::lock_guard<std::mutex> guard(contentMutex_);
     content_.push_back(baggage);
     std::cout << "Sending signal... " << signal_.num_slots() << std::endl;
-    ICollectable::signal_();
+    signal_();
 }
 
-std::vector<std::shared_ptr<Package>> BaggageBox::collect() {
-    std::vector<std::shared_ptr<Package>> itemsToMove(content_);
-    content_.clear();
-    return itemsToMove;
-};
+std::vector<std::shared_ptr<Package>>::const_iterator BaggageBox::collector() {
+    return content_.begin();
+}

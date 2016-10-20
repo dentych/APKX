@@ -4,6 +4,9 @@
 #include <vector>
 #include <iostream>
 #include <boost/signals2.hpp>
+#include <boost/statechart/state_machine.hpp>
+#include <boost/statechart/simple_state.hpp>
+#include <mutex>
 #include "meta.hpp"
 #include "Package.hpp"
 
@@ -20,9 +23,11 @@ public:
 class ICollectable {
     typedef boost::signals2::signal<void()> TSignal;
 public:
-    virtual std::vector<std::shared_ptr<Package>> collect() = 0;
+    virtual std::vector<std::shared_ptr<Package>>::const_iterator collector() = 0;
 
     TSignal signal_;
+protected:
+    std::mutex contentMutex_;
 };
 
 
@@ -47,7 +52,6 @@ private:
     std::map<TDestinationAddress, ICheckpoint *> routes_;
     ICheckpoint *nextCheckpoint_;
 };
-
 
 class XRay {
 public:
@@ -77,7 +81,9 @@ public:
 
     void checkIn(std::shared_ptr<Package> baggage);
 
-    std::vector<std::shared_ptr<Package>> collect();
+    std::vector<std::shared_ptr<Package>>::const_iterator collector();
+
+    std::mutex getLock();
 
 private:
     std::vector<std::shared_ptr<Package>> content_;
