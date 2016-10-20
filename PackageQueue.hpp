@@ -4,9 +4,14 @@
 #include <pthread.h>
 #include "Package.hpp"
 
+enum ItemType {
+    E_PACKAGE,
+    E_STOP
+};
 
 struct Item {
-    Item(TPackage p) : package(p) {};
+    Item(int id, TPackage p) : id(id), package(p) {};
+    int id;
     TPackage package;
 };
 
@@ -16,8 +21,8 @@ class PackageQueue
 public:
     PackageQueue();
     ~PackageQueue();
-    void push(TPackage package);
-    TPackage pop();
+    void push(int id, TPackage package = TPackage());
+    TPackage pop(int &id);
 private:
     std::queue<Item*> q_;
     pthread_mutex_t mtx_;

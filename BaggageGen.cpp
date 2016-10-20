@@ -29,8 +29,9 @@ void BaggageGen::readBaggageFromFile() {
         } catch (int e) {
             
         }
-        
     }
+
+    checkIn_->stop();
 }
 
 

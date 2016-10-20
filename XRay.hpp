@@ -15,16 +15,26 @@ public:
         if (contains<ContrabandTypes, T>::value)
             contrabandBox_->checkIn(baggage);
         else
-            queue_.push(baggage);
+            queue_.push(E_PACKAGE, baggage);
+    }
+
+    void stop() {
+        queue_.push(E_STOP);
     }
 
     void process() {
-        while(1)
-            checkpoint_->checkIn(queue_.pop());
+        while (1) {
+            int id;
+            TPackage package = queue_.pop(id);
+            if (id == E_STOP)
+                break;
+
+            checkpoint_->checkIn(package);
+        }
     }
 
 private:
     PackageQueue queue_;
-    ICheckpoint* contrabandBox_;
-    ICheckpoint* checkpoint_;
+    ICheckpoint *contrabandBox_;
+    ICheckpoint *checkpoint_;
 };

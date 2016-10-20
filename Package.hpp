@@ -49,6 +49,11 @@ public:
     LegalPackage(std::string destination, unsigned int weight);
 };
 
+class NoMorePackages : public Package {
+public:
+    NoMorePackages() : Package("", 0) {}
+};
+
 
 typedef TYPELIST3(Hash, Heroin, DonaldTrumpMerchandise) ContrabandTypes;
 typedef std::shared_ptr<Package> TPackage;

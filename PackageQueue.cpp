@@ -13,17 +13,17 @@ PackageQueue::~PackageQueue() {
 }
 
 
-void PackageQueue::push(TPackage package) {
+void PackageQueue::push(int id, TPackage package) {
     pthread_mutex_lock(&mtx_);
     
-    q_.push(new Item(package));
+    q_.push(new Item(id, package));
     
     pthread_mutex_unlock(&mtx_);
     pthread_cond_signal(&cond_);
 }
 
 
-TPackage PackageQueue::pop() {
+TPackage PackageQueue::pop(int &id) {
     pthread_mutex_lock(&mtx_);
     
     while (q_.size() < 1)
@@ -33,7 +33,8 @@ TPackage PackageQueue::pop() {
     q_.pop();
     
     pthread_mutex_unlock(&mtx_);
-    
+
+    id = item->id;
     TPackage package = item->package;
     delete item;
     

@@ -15,8 +15,8 @@ static const TDestinationAddress DEST_SPA = "SPA";
 static const TDestinationAddress DEST_RUS = "RUS";
 static const TDestinationAddress DEST_SWE = "SWE";
 
-static const std::string PackageFilePath = "packages.txt";
-//static const std::string PackageFilePath = "/home/dennis/Documents/git/APKX/packages.txt";
+//static const std::string PackageFilePath = "packages.txt";
+static const std::string PackageFilePath = "/home/dennis/Documents/git/APKX/packages.txt";
 
 struct BaggageGeneratorThreadArgs {
     XRay* xray;
@@ -30,7 +30,7 @@ void* baggageGeneratorThread(void* data) {
 }
 
 
-XRay* createInfrastructure() {
+int main() {
     BaggageBox* trashCan = new BaggageBox("Trash");
 
     BaggageBox* terminal1 = new BaggageBox("Terminal 1");
@@ -66,21 +66,23 @@ XRay* createInfrastructure() {
 
     BaggageBox* contrabandBox = new BaggageBox("ContrabandBox");
 
-    return new XRay(contrabandBox, checkpoint1);
-}
-
-
-int main() {
-    XRay* xray = createInfrastructure();
+    XRay *xray = new XRay(contrabandBox, checkpoint1);
 
     // Start package generator thread
     pthread_t generatorThread;
     BaggageGeneratorThreadArgs args;
     args.xray = xray;
-    pthread_create(&generatorThread, NULL, baggageGeneratorThread, (void*) &args);
+    pthread_create(&generatorThread, NULL, baggageGeneratorThread, (void *) &args);
 
     // Let main thread process packages
     xray->process();
+
+    delete dest1;
+    delete dest2;
+    delete dest3;
+    delete dest4;
+    delete dest5;
+    delete dest6;
 
     return 0;
 }
