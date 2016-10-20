@@ -24,7 +24,12 @@ void BaggageGen::readBaggageFromFile() {
     std::copy(start, eof, back_inserter(tempList));
 
     for (auto item : tempList) {
-        generatePackageType(item);
+        try {
+            generatePackageType(item);
+        } catch (int e) {
+            
+        }
+        
     }
 }
 
@@ -38,6 +43,8 @@ void BaggageGen::generatePackageType(Temp temp) {
         checkIn_->checkIn(createPackage<Heroin>(temp));
     else if (temp.type == "DonaldTrumpMerchandise")
         checkIn_->checkIn(createPackage<DonaldTrumpMerchandise>(temp));
+    else
+        throw 20;
 }
 
 

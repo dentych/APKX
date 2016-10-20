@@ -7,6 +7,7 @@ PACKAGE_TYPES = [
     'Hash',
     'Heroin',
     'DonaldTrumpMerchandise',
+    'Ugyldig',
 ]
 PACKAGE_DESTINATIONS = [
     'DEN',
