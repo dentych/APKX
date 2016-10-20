@@ -48,6 +48,10 @@ void BaggageBox::checkIn(std::shared_ptr<Package> baggage) {
     signal_();
 }
 
-std::vector<std::shared_ptr<Package>>::const_iterator BaggageBox::collector() {
-    return content_.begin();
+TPackageVector& BaggageBox::getContent() {
+    return content_;
+}
+
+std::string ICheckpoint::getName() const {
+    return name_;
 }

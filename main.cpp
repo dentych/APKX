@@ -57,18 +57,12 @@ XRay* createInfrastructure() {
     Destination* dest5 = new Destination(DEST_USA);
     Destination* dest6 = new Destination(DEST_RHO);
 
-    Airplane *air1 = new Airplane(terminal1, dest1, 100);
-    Airplane *air2 = new Airplane(terminal2, dest2, 100);
-    Airplane *air3 = new Airplane(terminal3, dest3, 100);
-    Airplane *air4 = new Airplane(terminal4, dest4, 100);
-    Airplane *air5 = new Airplane(terminal5, dest5, 100);
-    Airplane *air6 = new Airplane(terminal6, dest6, 100);
-    air1->initiate();
-    air2->initiate();
-    air3->initiate();
-    air4->initiate();
-    air5->initiate();
-    air6->initiate();
+    Airplane *air1 = Airplane::createAndInitiate(terminal1, dest1, 10000);
+    Airplane *air2 = Airplane::createAndInitiate(terminal2, dest2, 10000);
+    Airplane *air3 = Airplane::createAndInitiate(terminal3, dest3, 10000);
+    Airplane *air4 = Airplane::createAndInitiate(terminal4, dest4, 10000);
+    Airplane *air5 = Airplane::createAndInitiate(terminal5, dest5, 10000);
+    Airplane *air6 = Airplane::createAndInitiate(terminal6, dest6, 10000);
 
     BaggageBox* contrabandBox = new BaggageBox("ContrabandBox");
 

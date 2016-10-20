@@ -15,14 +15,18 @@ typedef std::string TDestinationAddress;
 
 class ICheckpoint {
 public:
+    std::string getName() const;
     virtual void checkIn(TPackage baggage) = 0;
+protected:
+    ICheckpoint(std::string name = "") : name_(name) {}
+    std::string name_;
 };
 
 
 class ICollectable {
     typedef boost::signals2::signal<void()> TSignal;
 public:
-    virtual std::vector<TPackage>::const_iterator collector() = 0;
+    virtual TPackageVector& getContent() = 0;
 
     TSignal signal_;
 protected:
@@ -33,18 +37,13 @@ protected:
 class RouteCheckpoint : public ICheckpoint {
 public:
     RouteCheckpoint(ICheckpoint *nextCheckpoint) : nextCheckpoint_(nextCheckpoint) {}
-
     void checkIn(TPackage baggage);
-
     void addRoute(TDestinationAddress address, ICheckpoint *checkpoint);
 
 protected:
     ICheckpoint *getRoute(TDestinationAddress address);
-
     void dispatch(TPackage baggage);
-
     void dispatch(TPackage baggage, ICheckpoint *checkpoint);
-
     bool hasRoute(TDestinationAddress address);
 
 private:
@@ -53,20 +52,15 @@ private:
 };
 
 
-
 class BaggageBox : public ICheckpoint, public ICollectable {
 public:
     BaggageBox() {}
 
-    BaggageBox(std::string name) : name_(name) {}
+    BaggageBox(std::string name) : ICheckpoint(name) {}
 
     void checkIn(TPackage baggage);
 
-    std::vector<TPackage>::const_iterator collector();
-
-    std::mutex getLock();
-
+    TPackageVector& getContent();
 private:
     std::vector<TPackage> content_;
-    std::string name_;
 };
