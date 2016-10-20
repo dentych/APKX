@@ -15,8 +15,8 @@ void BaggageGen::start() {
 
 void BaggageGen::readBaggageFromFile() {
     std::vector<Temp> tempList;
-    std::ifstream file("/home/dennis/Documents/git/APKX/packages.txt"); // DENNIS VERSION
-//    std::ifstream file("packages.txt");
+
+    std::ifstream file(filePath_);
     std::istream_iterator<Temp> start(file);
     std::istream_iterator<Temp> eof;
 
@@ -25,6 +25,7 @@ void BaggageGen::readBaggageFromFile() {
     for (auto item : tempList) {
         generatePackageType(item);
     }
+
     for (auto item : packageList) {
         std::cout << typeid(item.get()).name() << std::endl;
         if (typeid(item.get()) == typeid(LegalPackage)) {

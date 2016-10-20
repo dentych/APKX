@@ -12,11 +12,10 @@ public:
 
     template<typename T>
     void checkIn(std::shared_ptr<T> baggage) {
-        if (contains<ContrabandTypes, T>::value) {
+        if (contains<ContrabandTypes, T>::value)
             contrabandBox_->checkIn(baggage);
-        } else {
+        else
             queue_.push(baggage);
-        }
     }
 
     void process() {

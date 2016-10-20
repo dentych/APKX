@@ -15,18 +15,22 @@ static const TDestinationAddress DEST_SPA = "SPA";
 static const TDestinationAddress DEST_RUS = "RUS";
 static const TDestinationAddress DEST_SWE = "SWE";
 
+static const std::string PackageFilePath = "packages.txt";
+
 
 struct BaggageGeneratorThreadArgs {
     XRay* xray;
 };
 
 
-void* baggageGeneratorThread(void* arg) {
-
+void* baggageGeneratorThread(void* data) {
+    BaggageGeneratorThreadArgs* args = (BaggageGeneratorThreadArgs*) data;
+    BaggageGen bg(args->xray, PackageFilePath);
+    bg.start();
 }
 
 
-int main() {
+XRay* createInfrastructure() {
     BaggageBox* trashCan = new BaggageBox("Trash");
 
     BaggageBox* terminal1 = new BaggageBox("Terminal 1");
@@ -46,10 +50,6 @@ int main() {
     checkpoint1->addRoute(DEST_USA, terminal5);
     checkpoint1->addRoute(DEST_RHO, terminal6);
 
-    BaggageBox* contrabandBox = new BaggageBox("ContrabandBox");
-
-    XRay* xray = new XRay(contrabandBox, checkpoint1);
-
     Destination* dest1 = new Destination(DEST_DEN);
     Destination* dest2 = new Destination(DEST_FRA);
     Destination* dest3 = new Destination(DEST_GBR);
@@ -64,17 +64,22 @@ int main() {
     Airplane *air5 = new Airplane(terminal5, dest5, 100);
     Airplane *air6 = new Airplane(terminal6, dest6, 100);
 
-    std::cout << "Finding num_slots of first terminalez: " << terminal1->signal_.num_slots() << std::endl;
-    BaggageGen bg(xray);
-    bg.start();
+    BaggageBox* contrabandBox = new BaggageBox("ContrabandBox");
 
+    return new XRay(contrabandBox, checkpoint1);
+}
+
+
+int main() {
+    XRay* xray = createInfrastructure();
+
+    // Start package generator thread
     pthread_t generatorThread;
     BaggageGeneratorThreadArgs args;
     args.xray = xray;
-
     pthread_create(&generatorThread, NULL, baggageGeneratorThread, (void*) &args);
-    //pthread_join(generatorThread, NULL);
 
+    // Let main thread process packages
     xray->process();
 
     return 0;

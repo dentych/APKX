@@ -12,11 +12,13 @@ class Temp;
 
 class BaggageGen {
 public:
-    BaggageGen(XRay* checkIn) : checkIn_(checkIn) {}
+    BaggageGen(XRay* checkIn, std::string filePath) 
+        : checkIn_(checkIn), filePath_(filePath) {}
     void start();
 private:
-    std::vector<std::shared_ptr<Package>> packageList;
+    std::vector<TPackage> packageList;
     XRay* checkIn_;
+    std::string filePath_;
 
     void readBaggageFromFile();
     void generatePackageType(Temp temp);
