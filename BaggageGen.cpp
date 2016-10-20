@@ -15,8 +15,8 @@ void BaggageGen::start() {
 
 void BaggageGen::readBaggageFromFile() {
     std::vector<Temp> tempList;
-    std::ifstream file("/home/dennis/Documents/git/APKX/packages.txt"); // DENNIS VERSION
-//    std::ifstream file("packages.txt");
+//    std::ifstream file("/home/dennis/Documents/git/APKX/packages.txt"); // DENNIS VERSION
+    std::ifstream file("packages.txt");
     std::istream_iterator<Temp> start(file);
     std::istream_iterator<Temp> eof;
 
