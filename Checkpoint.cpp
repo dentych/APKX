@@ -42,8 +42,7 @@ ICheckpoint* RouteCheckpoint::getRoute(TDestinationAddress address) {
 void BaggageBox::checkIn(std::shared_ptr<Package> package) {
     std::lock_guard<std::mutex> guard(contentMutex_);
     content_.push_back(package);
-    std::cout << "Sending signal... " << signal_.num_slots() << std::endl;
-    signal_();
+    signal();
 }
 
 TPackageVector& BaggageBox::getContent() {

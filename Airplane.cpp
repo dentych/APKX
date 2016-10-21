@@ -2,20 +2,17 @@
 
 
 Airplane::Airplane(ICollectable *source, Destination *destination, unsigned int maxWeight)
-        : source_(source), destination_(destination), maxWeight_(maxWeight) {
-    std::cout << "Connecting" << std::endl;
-}
+        : source_(source), destination_(destination), maxWeight_(maxWeight) {}
 
 
 void Airplane::onBaggageReady() {
-    std::cout << "Signal received!" << std::endl;
     loadBaggage();
 }
 
 
 void Airplane::connectSignal() {
     if (!con.connected())
-        con = source_->signal_.connect(std::bind(&Airplane::onBaggageReady, this));
+        con = source_->signal.connect(std::bind(&Airplane::onBaggageReady, this));
 }
 
 void Airplane::disconnectSignal() {

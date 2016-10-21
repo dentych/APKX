@@ -26,7 +26,7 @@ class ICollectable {
 public:
     virtual TPackageVector& getContent() = 0;
 
-    TSignal signal_;
+    TSignal signal;
 protected:
     std::mutex contentMutex_;
 };
