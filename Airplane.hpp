@@ -25,7 +25,7 @@ private:
     ICollectable *source_;
     ICheckpoint *destination_;
     std::vector<std::shared_ptr<Package>> content_;
-    boost::signals2::connection con;
+    boost::signals2::scoped_connection con;
     unsigned int maxWeight_;
 
     bool isFull();
