@@ -4,8 +4,6 @@
 #include <vector>
 #include <iostream>
 #include <boost/signals2.hpp>
-#include <boost/statechart/state_machine.hpp>
-#include <boost/statechart/simple_state.hpp>
 #include <mutex>
 #include "Package.hpp"
 
