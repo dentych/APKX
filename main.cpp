@@ -22,7 +22,7 @@ struct BaggageGeneratorThreadArgs {
 };
 
 
-void* baggageGeneratorThread(void* data) {
+void* packageGeneratorThread(void* data) {
     BaggageGeneratorThreadArgs* args = (BaggageGeneratorThreadArgs*) data;
     BaggageGen bg(args->xray, PackageFilePath);
     bg.start();
@@ -71,7 +71,7 @@ int main() {
     pthread_t generatorThread;
     BaggageGeneratorThreadArgs args;
     args.xray = xray;
-    pthread_create(&generatorThread, NULL, baggageGeneratorThread, (void *) &args);
+    pthread_create(&generatorThread, NULL, packageGeneratorThread, (void *) &args);
 
     // Let main thread process packages
     xray->process();

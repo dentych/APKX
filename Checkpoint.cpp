@@ -4,22 +4,22 @@
 // -- RouteCheckpoint --------------------------------------------------------
 
 
-void RouteCheckpoint::checkIn(std::shared_ptr<Package> baggage) {
-    dispatch(baggage);
+void RouteCheckpoint::checkIn(std::shared_ptr<Package> package) {
+    dispatch(package);
 };
 
 
-void RouteCheckpoint::dispatch(std::shared_ptr<Package> baggage) {
-    TDestinationAddress address = baggage->getDestination();
+void RouteCheckpoint::dispatch(std::shared_ptr<Package> package) {
+    TDestinationAddress address = package->getDestination();
     if(hasRoute(address))
-        dispatch(baggage, getRoute(address));
+        dispatch(package, getRoute(address));
     else
-        dispatch(baggage, nextCheckpoint_);
+        dispatch(package, nextCheckpoint_);
 };
 
 
-void RouteCheckpoint::dispatch(std::shared_ptr<Package> baggage, ICheckpoint* checkpoint) {
-    checkpoint->checkIn(baggage);
+void RouteCheckpoint::dispatch(std::shared_ptr<Package> package, ICheckpoint* checkpoint) {
+    checkpoint->checkIn(package);
 };
 
 
@@ -39,11 +39,9 @@ ICheckpoint* RouteCheckpoint::getRoute(TDestinationAddress address) {
 // -- BaggageBox --------------------------------------------------------------
 
 
-void BaggageBox::checkIn(std::shared_ptr<Package> baggage) {
-    std::string name = name_.length() > 0 ? name_ : "BaggageBox";
-    std::cout << name << " received: " << baggage->getDestination() << std::endl;
+void BaggageBox::checkIn(std::shared_ptr<Package> package) {
     std::lock_guard<std::mutex> guard(contentMutex_);
-    content_.push_back(baggage);
+    content_.push_back(package);
     std::cout << "Sending signal... " << signal_.num_slots() << std::endl;
     signal_();
 }

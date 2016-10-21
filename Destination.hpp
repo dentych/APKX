@@ -11,10 +11,8 @@ typedef std::string TDestinationAddress;
 class Destination : public ICheckpoint {
 public:
     Destination(std::string name) : ICheckpoint(name) {}
-
     ~Destination();
-
-    void checkIn(TPackage baggage);
+    void checkIn(TPackage package);
 private:
     std::vector<TPackage> arrivedBaggage_;
 };

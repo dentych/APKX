@@ -16,7 +16,7 @@ typedef std::string TDestinationAddress;
 class ICheckpoint {
 public:
     std::string getName() const;
-    virtual void checkIn(TPackage baggage) = 0;
+    virtual void checkIn(TPackage package) = 0;
 protected:
     ICheckpoint(std::string name = "") : name_(name) {}
     std::string name_;
@@ -37,13 +37,13 @@ protected:
 class RouteCheckpoint : public ICheckpoint {
 public:
     RouteCheckpoint(ICheckpoint *nextCheckpoint) : nextCheckpoint_(nextCheckpoint) {}
-    void checkIn(TPackage baggage);
+    void checkIn(TPackage package);
     void addRoute(TDestinationAddress address, ICheckpoint *checkpoint);
 
 protected:
     ICheckpoint *getRoute(TDestinationAddress address);
-    void dispatch(TPackage baggage);
-    void dispatch(TPackage baggage, ICheckpoint *checkpoint);
+    void dispatch(TPackage package);
+    void dispatch(TPackage package, ICheckpoint *checkpoint);
     bool hasRoute(TDestinationAddress address);
 
 private:
@@ -58,7 +58,7 @@ public:
 
     BaggageBox(std::string name) : ICheckpoint(name) {}
 
-    void checkIn(TPackage baggage);
+    void checkIn(TPackage package);
 
     TPackageVector& getContent();
 private:

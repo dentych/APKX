@@ -1,9 +1,8 @@
 #include "Destination.hpp"
 
 
-void Destination::checkIn(TPackage baggage) {
-    std::cout << "Destination " << getName() << " received " << baggage->getDestination() << std::endl;
-    arrivedBaggage_.push_back(baggage);
+void Destination::checkIn(TPackage package) {
+    arrivedBaggage_.push_back(package);
 }
 
 Destination::~Destination() {
@@ -14,6 +13,4 @@ Destination::~Destination() {
             break;
         }
     }
-    std::string correct = correctDelivery ? "yes" : "no";
-    std::cout << "Arrived packages at " << name_ << ": " << arrivedBaggage_.size() << ". Correct delivery: " << correct << std::endl;
 }
