@@ -10,13 +10,13 @@ public:
     XRay(ICheckpoint *contrabandBox, ICheckpoint *checkpoint)
             : contrabandBox_(contrabandBox), checkpoint_(checkpoint) {}
 
-template<typename T>
-void checkIn(std::shared_ptr<T> package) {
-    if (contains<ContrabandTypes, T>::value)
-        contrabandBox_->checkIn(package);
-    else
-        queue_.push(E_PACKAGE, package);
-}
+    template<typename T>
+    void checkIn(std::shared_ptr<T> package) {
+        if (contains<ContrabandTypes, T>::value)
+            contrabandBox_->checkIn(package);
+        else
+            queue_.push(E_PACKAGE, package);
+    }
 
     void stop() {
         queue_.push(E_STOP);

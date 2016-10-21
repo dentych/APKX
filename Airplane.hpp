@@ -2,7 +2,6 @@
 #include <boost/statechart/state_machine.hpp>
 #include <boost/statechart/state.hpp>
 #include "Checkpoint.hpp"
-#include "Destination.hpp"
 
 namespace sc = boost::statechart;
 
@@ -11,7 +10,8 @@ struct Delivering;
 
 class Airplane : public sc::state_machine<Airplane, AtTerminal> {
 public:
-    Airplane(ICollectable *source, Destination *destination, unsigned int maxWeight);
+    Airplane(ICollectable *source, ICheckpoint *destination, unsigned int maxWeight);
+    ~Airplane();
     void onBaggageReady();
     void loadBaggage();
     void unloadBaggage();
@@ -19,7 +19,7 @@ public:
     void disconnectSignal();
     const ICheckpoint* getDestination();
 
-    static Airplane* createAndInitiate(ICollectable *source, Destination *destination, unsigned int maxWeight);
+    static Airplane* createAndInitiate(ICollectable *source, ICheckpoint *destination, unsigned int maxWeight);
 
 private:
     ICollectable *source_;
@@ -39,21 +39,23 @@ struct EvAtTerminal : sc::event<EvAtTerminal> {
 };
 
 struct AtTerminal : sc::state<AtTerminal, Airplane> {
+    typedef sc::state<AtTerminal, Airplane> base;
     typedef sc::transition<EvFull, Delivering> reactions;
 
-    AtTerminal(my_context ctx) : my_base(ctx) {
+    AtTerminal(my_context ctx) : base(ctx) {
+        std::cout << "Airplane to " << context<Airplane>().getDestination()->getName() << " at Terminal" << std::endl;
         context<Airplane>().connectSignal();
         context<Airplane>().loadBaggage();
     }
 };
 
 struct Delivering : sc::state<Delivering, Airplane> {
+    typedef sc::state<Delivering, Airplane> base;
     typedef sc::transition<EvAtTerminal, AtTerminal> reactions;
 
-    Delivering(my_context ctx) : my_base(ctx) {
+    Delivering(my_context ctx) : base(ctx) {
         std::cout << "Airplane full - flying to " << context<Airplane>().getDestination()->getName() << std::endl;
         context<Airplane>().disconnectSignal();
         context<Airplane>().unloadBaggage();
-        context<Airplane>().process_event(EvAtTerminal());
     }
 };

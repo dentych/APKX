@@ -13,4 +13,6 @@ Destination::~Destination() {
             break;
         }
     }
+    std::string correct = correctDelivery ? "yes" : "no";
+    std::cout << "Arrived packages at " << name_ << ": " << arrivedBaggage_.size() << ". Correct delivery: " << correct << std::endl;
 }

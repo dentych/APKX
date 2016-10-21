@@ -1,8 +1,10 @@
 #include "Airplane.hpp"
 
 
-Airplane::Airplane(ICollectable *source, Destination *destination, unsigned int maxWeight)
-        : source_(source), destination_(destination), maxWeight_(maxWeight) {}
+Airplane::Airplane(ICollectable *source, ICheckpoint *destination, unsigned int maxWeight)
+        : source_(source), destination_(destination), maxWeight_(maxWeight) {
+    initiate();
+}
 
 
 void Airplane::onBaggageReady() {
@@ -21,7 +23,7 @@ void Airplane::disconnectSignal() {
 }
 
 void Airplane::loadBaggage() {
-    TPackageVector boxContent = source_->getContent();
+    TPackageVector& boxContent = source_->getContent();
 
     for (auto iter = boxContent.begin(); iter != boxContent.end();) {
         content_.push_back(*iter);
@@ -29,6 +31,7 @@ void Airplane::loadBaggage() {
 
         if (isFull()) {
             process_event(EvFull());
+            process_event(EvAtTerminal());
             break;
         }
     }
@@ -38,12 +41,18 @@ void Airplane::unloadBaggage() {
     for (auto iter : content_) {
         destination_->checkIn(iter);
     }
+
+    content_.clear();
 }
 
-Airplane *Airplane::createAndInitiate(ICollectable *source, Destination *destination, unsigned int maxWeight) {
+Airplane *Airplane::createAndInitiate(ICollectable *source, ICheckpoint *destination, unsigned int maxWeight) {
     Airplane* airplane = new Airplane(source, destination, maxWeight);
     airplane->initiate();
     return airplane;
+}
+
+Airplane::~Airplane() {
+    process_event(EvFull());
 }
 
 bool Airplane::isFull() {
