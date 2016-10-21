@@ -13,16 +13,16 @@ public:
 };
 
 
-class BaggageGen {
+class PackageGen {
 public:
-    BaggageGen(XRay* checkIn, std::string filePath) 
+    PackageGen(XRay* checkIn, std::string filePath)
         : checkIn_(checkIn), filePath_(filePath) {}
     void start();
 private:
     XRay* checkIn_;
     std::string filePath_;
 
-    void readBaggageFromFile();
+    void readPackagesFromFile();
     void generatePackageType(Temp temp);
     
     template<typename T>

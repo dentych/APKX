@@ -6,15 +6,15 @@
 #include <iterator>
 #include <iostream>
 #include <queue>
-#include "BaggageGen.hpp"
+#include "PackageGen.hpp"
 
 
-void BaggageGen::start() {
-    readBaggageFromFile();
+void PackageGen::start() {
+    readPackagesFromFile();
 }
 
 
-void BaggageGen::readBaggageFromFile() {
+void PackageGen::readPackagesFromFile() {
     std::vector<Temp> tempList;
 
     std::ifstream file(filePath_);
@@ -35,7 +35,7 @@ void BaggageGen::readBaggageFromFile() {
 }
 
 
-void BaggageGen::generatePackageType(Temp temp) {
+void PackageGen::generatePackageType(Temp temp) {
     if (temp.type == "LegalPackage")
         checkIn_->checkIn(createPackage<LegalPackage>(temp));
     else if (temp.type == "Hash")

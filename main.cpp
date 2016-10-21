@@ -1,7 +1,7 @@
 #include <iostream>
 #include <pthread.h>
 #include "Checkpoint.hpp"
-#include "BaggageGen.hpp"
+#include "PackageGen.hpp"
 #include "Destination.hpp"
 #include "Airplane.hpp"
 
@@ -17,27 +17,27 @@ static const TDestinationAddress DEST_SWE = "SWE";
 
 static const std::string PackageFilePath = "/home/dennis/Documents/git/APKX/packages.txt";
 
-struct BaggageGeneratorThreadArgs {
+struct PackageGeneratorThreadArgs {
     XRay* xray;
 };
 
 
 void* packageGeneratorThread(void* data) {
-    BaggageGeneratorThreadArgs* args = (BaggageGeneratorThreadArgs*) data;
-    BaggageGen bg(args->xray, PackageFilePath);
+    PackageGeneratorThreadArgs* args = (PackageGeneratorThreadArgs*) data;
+    PackageGen bg(args->xray, PackageFilePath);
     bg.start();
 }
 
 
 int main() {
-    BaggageBox trashCan("Trash");
+    PackageBox trashCan("Trash");
 
-    BaggageBox terminal1("Terminal 1");
-    BaggageBox terminal2("Terminal 2");
-    BaggageBox terminal3("Terminal 3");
-    BaggageBox terminal4("Terminal 4");
-    BaggageBox terminal5("Terminal 5");
-    BaggageBox terminal6("Terminal 6");
+    PackageBox terminal1("Terminal 1");
+    PackageBox terminal2("Terminal 2");
+    PackageBox terminal3("Terminal 3");
+    PackageBox terminal4("Terminal 4");
+    PackageBox terminal5("Terminal 5");
+    PackageBox terminal6("Terminal 6");
 
     RouteCheckpoint checkpoint2(&trashCan);
     checkpoint2.addRoute(DEST_DEN, &terminal1);
@@ -63,13 +63,13 @@ int main() {
     Airplane air5(&terminal5, &dest5, 200);
     Airplane air6(&terminal6, &dest6, 200);
 
-    BaggageBox* contrabandBox = new BaggageBox("ContrabandBox");
+    PackageBox* contrabandBox = new PackageBox("ContrabandBox");
 
     XRay *xray = new XRay(contrabandBox, &checkpoint1);
 
     // Start package generator thread
     pthread_t generatorThread;
-    BaggageGeneratorThreadArgs args;
+    PackageGeneratorThreadArgs args;
     args.xray = xray;
     pthread_create(&generatorThread, NULL, packageGeneratorThread, (void *) &args);
 

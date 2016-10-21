@@ -12,9 +12,9 @@ class Airplane : public sc::state_machine<Airplane, AtTerminal> {
 public:
     Airplane(ICollectable *source, ICheckpoint *destination, unsigned int maxWeight);
     ~Airplane();
-    void onBaggageReady();
-    void loadBaggage();
-    void unloadBaggage();
+    void onPackageReady();
+    void loadPackages();
+    void unloadPackages();
     void connectSignal();
     void disconnectSignal();
     const ICheckpoint* getDestination();
@@ -45,7 +45,7 @@ struct AtTerminal : sc::state<AtTerminal, Airplane> {
     AtTerminal(my_context ctx) : base(ctx) {
         std::cout << "Airplane to " << context<Airplane>().getDestination()->getName() << " at Terminal" << std::endl;
         context<Airplane>().connectSignal();
-        context<Airplane>().loadBaggage();
+        context<Airplane>().loadPackages();
     }
 };
 
@@ -56,6 +56,6 @@ struct Delivering : sc::state<Delivering, Airplane> {
     Delivering(my_context ctx) : base(ctx) {
         std::cout << "Airplane full - flying to " << context<Airplane>().getDestination()->getName() << std::endl;
         context<Airplane>().disconnectSignal();
-        context<Airplane>().unloadBaggage();
+        context<Airplane>().unloadPackages();
     }
 };

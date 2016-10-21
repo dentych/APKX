@@ -14,5 +14,5 @@ public:
     ~Destination();
     void checkIn(TPackage package);
 private:
-    std::vector<TPackage> arrivedBaggage_;
+    std::vector<TPackage> arrivedPackages_;
 };

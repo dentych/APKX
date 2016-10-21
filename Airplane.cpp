@@ -7,14 +7,14 @@ Airplane::Airplane(ICollectable *source, ICheckpoint *destination, unsigned int 
 }
 
 
-void Airplane::onBaggageReady() {
-    loadBaggage();
+void Airplane::onPackageReady() {
+    loadPackages();
 }
 
 
 void Airplane::connectSignal() {
     if (!con.connected())
-        con = source_->signal.connect(std::bind(&Airplane::onBaggageReady, this));
+        con = source_->signal.connect(std::bind(&Airplane::onPackageReady, this));
 }
 
 void Airplane::disconnectSignal() {
@@ -22,7 +22,7 @@ void Airplane::disconnectSignal() {
         con.disconnect();
 }
 
-void Airplane::loadBaggage() {
+void Airplane::loadPackages() {
     TPackageVector& boxContent = source_->getContent();
 
     for (auto iter = boxContent.begin(); iter != boxContent.end();) {
@@ -37,7 +37,7 @@ void Airplane::loadBaggage() {
     }
 }
 
-void Airplane::unloadBaggage() {
+void Airplane::unloadPackages() {
     for (auto iter : content_) {
         destination_->checkIn(iter);
     }

@@ -36,16 +36,16 @@ ICheckpoint* RouteCheckpoint::getRoute(TDestinationAddress address) {
 };
 
 
-// -- BaggageBox --------------------------------------------------------------
+// -- PackageBox --------------------------------------------------------------
 
 
-void BaggageBox::checkIn(std::shared_ptr<Package> package) {
+void PackageBox::checkIn(std::shared_ptr<Package> package) {
     std::lock_guard<std::mutex> guard(contentMutex_);
     content_.push_back(package);
     signal();
 }
 
-TPackageVector& BaggageBox::getContent() {
+TPackageVector& PackageBox::getContent() {
     return content_;
 }
 

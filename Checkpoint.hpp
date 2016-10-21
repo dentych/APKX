@@ -50,11 +50,11 @@ private:
 };
 
 
-class BaggageBox : public ICheckpoint, public ICollectable {
+class PackageBox : public ICheckpoint, public ICollectable {
 public:
-    BaggageBox() {}
+    PackageBox() {}
 
-    BaggageBox(std::string name) : ICheckpoint(name) {}
+    PackageBox(std::string name) : ICheckpoint(name) {}
 
     void checkIn(TPackage package);
 
