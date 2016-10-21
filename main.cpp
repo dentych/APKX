@@ -15,7 +15,7 @@ static const TDestinationAddress DEST_SPA = "SPA";
 static const TDestinationAddress DEST_RUS = "RUS";
 static const TDestinationAddress DEST_SWE = "SWE";
 
-static const std::string PackageFilePath = "/home/dennis/Documents/git/APKX/packages.txt";
+static const std::string PackageFilePath = "packages.txt";
 
 struct PackageGeneratorThreadArgs {
     XRay* xray;

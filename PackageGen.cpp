@@ -26,8 +26,8 @@ void PackageGen::readPackagesFromFile() {
     for (auto item : tempList) {
         try {
             generatePackageType(item);
-        } catch (int e) {
-            
+        } catch (InvalidPackageTypeException e) {
+            std::cout << "Ignoring invalid package: " << item.type << std::endl;
         }
     }
 
@@ -45,7 +45,7 @@ void PackageGen::generatePackageType(Temp temp) {
     else if (temp.type == "DonaldTrumpMerchandise")
         checkIn_->checkIn(createPackage<DonaldTrumpMerchandise>(temp));
     else
-        throw 20;
+        throw InvalidPackageTypeException(temp.type);
 }
 
 

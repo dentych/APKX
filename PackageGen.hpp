@@ -1,6 +1,8 @@
 #pragma once
 
 #include <memory>
+#include <exception>
+#include <stdexcept>
 #include "Package.hpp"
 #include "XRay.hpp"
 
@@ -29,6 +31,13 @@ private:
     std::shared_ptr<T> createPackage(Temp t) {
         return std::shared_ptr<T>(new T(t.destination, t.weight));
     };
+};
+
+
+class InvalidPackageTypeException : public std::runtime_error {
+public:
+    InvalidPackageTypeException(std::string typeName)
+        : runtime_error("Invalid package type: " + typeName) {}
 };
 
 
