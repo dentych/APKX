@@ -27,7 +27,7 @@ void PackageGen::readPackagesFromFile() {
         try {
             generatePackageType(item);
         } catch (InvalidPackageTypeException e) {
-            std::cout << "Ignoring invalid package: " << item.type << std::endl;
+            // Do nothing with the package.
         }
     }
 
