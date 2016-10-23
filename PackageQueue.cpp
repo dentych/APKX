@@ -14,7 +14,9 @@ void PackageQueue::push(int id, TPackage package) {
 TPackage PackageQueue::pop(int &id) {
     std::unique_lock<std::mutex> lock(mtx_);
 
-    cond_.wait(lock, [&]{ return q_.size() > 0; });
+    if (q_.size() < 1) {
+        cond_.wait(lock, [&] { return q_.size() > 0; });
+    }
 
     Item *item = q_.front();
     q_.pop();
