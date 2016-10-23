@@ -1,5 +1,6 @@
 #include <iostream>
 #include <pthread.h>
+#include <thread>
 #include "Checkpoint.hpp"
 #include "PackageGen.hpp"
 #include "Destination.hpp"
@@ -15,16 +16,15 @@ static const TDestinationAddress DEST_SPA = "SPA";
 static const TDestinationAddress DEST_RUS = "RUS";
 static const TDestinationAddress DEST_SWE = "SWE";
 
-static const std::string PackageFilePath = "packages.txt";
+static const std::string PackageFilePath = "/home/dennis/Documents/git/APKX/packages.txt";
 
 struct PackageGeneratorThreadArgs {
     XRay* xray;
 };
 
 
-void* packageGeneratorThread(void* data) {
-    PackageGeneratorThreadArgs* args = (PackageGeneratorThreadArgs*) data;
-    PackageGen bg(args->xray, PackageFilePath);
+void* packageGeneratorThread(XRay* args) {
+    PackageGen bg(args, PackageFilePath);
     bg.start();
 }
 
@@ -68,13 +68,12 @@ int main() {
     XRay *xray = new XRay(contrabandBox, &checkpoint1);
 
     // Start package generator thread
-    pthread_t generatorThread;
-    PackageGeneratorThreadArgs args;
-    args.xray = xray;
-    pthread_create(&generatorThread, NULL, packageGeneratorThread, (void *) &args);
+    std::thread generatorThread(packageGeneratorThread, xray);
 
     // Let main thread process packages
     xray->process();
+
+    generatorThread.join();
 
     return 0;
 }

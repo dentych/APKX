@@ -2,6 +2,8 @@
 
 #include <queue>
 #include <pthread.h>
+#include <mutex>
+#include <condition_variable>
 #include "Package.hpp"
 
 enum ItemType {
@@ -19,12 +21,10 @@ struct Item {
 class PackageQueue
 {
 public:
-    PackageQueue();
-    ~PackageQueue();
     void push(int id, TPackage package = TPackage());
     TPackage pop(int &id);
 private:
     std::queue<Item*> q_;
-    pthread_mutex_t mtx_;
-    pthread_cond_t cond_;
+    std::mutex mtx_;
+    std::condition_variable cond_;
 };
