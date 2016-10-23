@@ -12,10 +12,8 @@ public:
 
     template<typename T>
     void checkIn(std::shared_ptr<T> package) {
-        if (contains<ContrabandTypes, T>::value) {
+        if (contains<ContrabandTypes, T>::value)
             contrabandBox_->checkIn(package);
-            std::cout << "Contraband found!" << std::endl;
-        }
         else
             queue_.push(E_PACKAGE, package);
     }
